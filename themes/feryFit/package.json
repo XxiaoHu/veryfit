@@ -1,0 +1,17 @@
+{
+  "name": "feryfit",
+  "version": "1.0.0",
+  "description": "A simple WordPress theme with Gutenberg blocks",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build --webpack-src-dir=blocks --output-path=blocks/build",
+    "start": "wp-scripts start --webpack-src-dir=blocks --output-path=blocks/build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["wordpress", "theme", "gutenberg"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "^32.1.0"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "feryfit/warranty-banner",
+  "version": "0.1.0",
+  "title": "保修激活横幅",
+  "category": "widgets",
+  "icon": "shield",
+  "description": "一个带有背景图片、标题、副标题和按钮的保修激活横幅区块。",
+  "example": {},
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "textdomain": "feryfit",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "backgroundImageId": {
+      "type": "number",
+      "default": 0
+    },
+    "backgroundImage": {
+      "type": "string",
+      "default": ""
+    },
+    "mobileBackgroundImageId": {
+      "type": "number",
+      "default": 0
+    },
+    "mobileBackgroundImage": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "source": "html",
+      "selector": ".warranty-banner__title",
+      "default": "Activate your warranty"
+    },
+    "subtitle": {
+      "type": "string",
+      "source": "html",
+      "selector": ".warranty-banner__subtitle",
+      "default": "Register your Amazon order to enjoy extended protection and priority support"
+    },
+    "buttonText": {
+      "type": "string",
+      "default": "Go to Warranty Page"
+    },
+    "buttonUrl": {
+      "type": "string",
+      "default": "#"
+    }
+  }
+}

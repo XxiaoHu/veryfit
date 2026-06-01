@@ -1,0 +1,69 @@
+.wp-block-feryfit-custom-banner {
+	.custom-banner__background {
+		width: 100%;
+		height: 410px;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		position: relative;
+	}
+
+	.custom-banner__mobile-background {
+		display: none;
+	}
+
+	.custom-banner__content {
+		text-align: center;
+		padding: 20px;
+		position: relative;
+		z-index: 1;
+		margin-left: 320px;
+	}
+
+	.custom-banner__title {
+		font-size: 32px;
+		font-weight: bold;
+		color: #333;
+		margin: 0;
+		line-height: 1.4;
+	}
+
+	@media (max-width: 768px) {
+		.custom-banner__background {
+			height: 400px;
+			background-image: none !important;
+			position: relative;
+			align-items: flex-start;
+			justify-content: center;
+			padding-left: 0;
+			padding-top: 40px;
+		}
+
+		.custom-banner__mobile-background {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			z-index: 0;
+		}
+
+		.custom-banner__content {
+			position: relative;
+			z-index: 1;
+			text-align: center;
+			margin-left: 0;
+		}
+
+		.custom-banner__title {
+			font-size: 24px;
+		}
+	}
+}

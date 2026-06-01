@@ -1,0 +1,39 @@
+/**
+ * Video Admin Styles
+ */
+
+.video-meta-box {
+    padding: 12px 0;
+}
+
+.video-meta-field {
+    margin-bottom: 16px;
+}
+
+.video-meta-field:last-child {
+    margin-bottom: 0;
+}
+
+.video-meta-field label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.video-meta-field input[type="url"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.video-meta-field input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.video-pinned-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #dc2626;
+    color: #fff;
+    font-size: 11px;
+    border-radius: 3px;
+    font-weight: 600;
+}

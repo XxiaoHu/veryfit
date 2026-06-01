@@ -1,0 +1,49 @@
+/* Global Breadcrumb Styles */
+.feryfit-breadcrumb {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 20px;
+	background: #000;
+	padding-left: 288px;
+}
+
+.feryfit-breadcrumb__item {
+	color: #999;
+	font-family: Inter;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.5;
+}
+
+.feryfit-breadcrumb__item--current {
+	color: #fff;
+}
+
+.feryfit-breadcrumb__link {
+	color: #999;
+	text-decoration: none;
+	transition: color 0.2s ease;
+}
+
+.feryfit-breadcrumb__link:hover {
+	color: #fff;
+}
+
+.feryfit-breadcrumb__separator {
+	color: #999;
+	font-size: 14px;
+}
+
+@media screen and (max-width: 768px) {
+	.feryfit-breadcrumb {
+		padding: 15px;
+		gap: 6px;
+	}
+
+	.feryfit-breadcrumb__item,
+	.feryfit-breadcrumb__separator {
+		font-size: 12px;
+	}
+}

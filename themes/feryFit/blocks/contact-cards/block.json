@@ -1,0 +1,46 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "feryfit/contact-cards",
+	"version": "0.1.0",
+	"title": "Contact Cards",
+	"category": "widgets",
+	"icon": "admin-users",
+	"description": "联系卡片区块，展示 WhatsApp、Email、Facebook 联系方式",
+	"example": {},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	},
+	"textdomain": "feryfit",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"whatsappText": {
+			"type": "string",
+			"source": "html",
+			"selector": ".contact-card__text--whatsapp",
+			"default": "Chat on WhatsApp"
+		},
+		"emailText": {
+			"type": "string",
+			"source": "html",
+			"selector": ".contact-card__text--email",
+			"default": "Send an Email"
+		},
+		"facebookText": {
+			"type": "string",
+			"source": "html",
+			"selector": ".contact-card__text--facebook",
+			"default": "Message us on Facebook"
+		},
+		"contactText": {
+			"type": "string",
+			"source": "html",
+			"selector": ".contact-text",
+			"default": "Prefer not to use these options? Leave a message here, and we'll get back to you as soon as possible!"
+		}
+	}
+}

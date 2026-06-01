@@ -1,0 +1,228 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-feryfit-hero-banner {
+	position: relative !important;
+	overflow: hidden !important;
+	max-width: 100% !important;
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+.wp-block-feryfit-hero-banner .hero-banner__background {
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
+	background-size: cover !important;
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+	background-color: #21759b !important;
+}
+
+.wp-block-feryfit-hero-banner .hero-banner__content {
+	position: relative !important;
+	z-index: 1 !important;
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: center !important;
+	align-items: center !important;
+	height: 100% !important;
+	text-align: center !important;
+	color: #fff !important;
+}
+
+.wp-block-feryfit-hero-banner .hero-banner__title {
+	color: #FFF;
+	font-family: Inter;
+	font-size: 36px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	margin-bottom: 13px;
+}
+
+.wp-block-feryfit-hero-banner .hero-banner__subtitle {
+	color: #FFF;
+	font-family: Inter;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+.wp-block-feryfit-hero-banner .hero-banner__keywords-list {
+	display: flex !important;
+	flex-wrap: wrap !important;
+	gap: 8px !important;
+	justify-content: center !important;
+	margin-top: 10px !important;
+}
+
+.hero-banner__keywords-list .hero-banner__keyword-tag {
+	cursor: pointer !important;
+}
+
+.wp-block-feryfit-hero-banner .hero-banner__keyword-tag:hover {
+	background: rgba(0, 0, 0, 0.80) !important;
+}
+
+.wp-block-feryfit-hero-banner .hero-banner__keyword-tag {
+	display: inline-flex !important;
+	align-items: center !important;
+	padding: 8px 16px !important;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+	border-radius: 20px;
+	background: rgba(0, 0, 0, 0.40);
+	color: #FFF;
+	text-align: center;
+	font-family: Inter;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+
+.wp-block-feryfit-hero-banner .hero-banner__search-form {
+	display: flex !important;
+	align-items: center !important;
+	max-width: 560px !important;
+	width: 100% !important;
+	margin: 30px;
+	background: #fff !important;
+	border-radius: 4px !important;
+	overflow: hidden !important;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.wp-block-feryfit-hero-banner .hero-banner__search-icon {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	padding: 12px 16px;
+	padding-right: 0px;
+	color: #999 !important;
+}
+
+.wp-block-feryfit-hero-banner .hero-banner__search-input {
+	flex: 1 !important;
+	border: none !important;
+	outline: none !important;
+	padding: 12px !important;
+	font-size: 14px !important;
+	font-family: inherit !important;
+	background: transparent !important;
+	color: #333 !important;
+}
+
+.wp-block-feryfit-hero-banner .hero-banner__search-input::placeholder {
+	color: #999 !important;
+}
+
+.wp-block-feryfit-hero-banner .hero-banner__search-button {
+	border-radius: 0 4px 4px 0;
+	background: #CD3D1C;
+	color: #fff !important;
+	border: none !important;
+	padding: 12px 24px !important;
+	font-size: 16px !important;
+	font-family: Inter;
+	font-weight: 600 !important;
+	cursor: pointer !important;
+	transition: background-color 0.3s ease !important;
+	height: 100%;
+}
+
+.wp-block-feryfit-hero-banner .hero-banner__search-button:hover {
+	background: #c62828 !important;
+}
+
+/* 移动端背景图容器 */
+.wp-block-feryfit-hero-banner .hero-banner__mobile-background {
+	display: none !important;
+}
+
+/* ==============================================
+   移动端断点 (≤768px)
+   ============================================== */
+@media screen and (max-width: 768px) {
+	.wp-block-feryfit-hero-banner {
+		height: 524px !important;
+		min-height: 524px !important;
+		max-width: 100% !important;
+		width: 100% !important;
+	}
+
+	.wp-block-feryfit-hero-banner .hero-banner__background {
+		background-image: none !important;
+	}
+
+	.wp-block-feryfit-hero-banner .hero-banner__mobile-background {
+		display: block !important;
+		position: absolute !important;
+		top: 0 !important;
+		left: 0 !important;
+		right: 0 !important;
+		bottom: 0 !important;
+		background-size: cover !important;
+		background-position: center !important;
+		background-repeat: no-repeat !important;
+		background-color: #21759b !important;
+	}
+
+	.wp-block-feryfit-hero-banner .hero-banner__content {
+		justify-content: flex-start !important;
+		height: auto !important;
+		padding-top: 41px !important;
+	}
+
+	.wp-block-feryfit-hero-banner .hero-banner__title {
+		font-size: 24px !important;
+	}
+
+	.wp-block-feryfit-hero-banner .hero-banner__subtitle {
+		font-size: 14px !important;
+	}
+
+	.wp-block-feryfit-hero-banner .hero-banner__keyword-tag {
+		font-size: 12px !important;
+		padding: 6px 12px !important;
+	}
+
+
+	.hero-banner__keywords-list {
+		width: 80%;
+	}
+
+	.wp-block-feryfit-hero-banner .hero-banner__search-form {
+		max-width: 332px !important;
+		width: 332px !important;
+		height: 44px !important;
+		border-radius: 4px !important;
+	}
+
+	.wp-block-feryfit-hero-banner .hero-banner__search-icon {
+		padding: 10px 14px !important;
+	}
+
+	.wp-block-feryfit-hero-banner .hero-banner__search-icon svg {
+		width: 18px !important;
+		height: 18px !important;
+	}
+
+	.wp-block-feryfit-hero-banner .hero-banner__search-input {
+		padding: 10px 12px !important;
+		font-size: 14px !important;
+	}
+
+	.wp-block-feryfit-hero-banner .hero-banner__search-button {
+		padding: 10px 20px !important;
+		font-size: 14px !important;
+		height: 100% !important;
+	}
+}

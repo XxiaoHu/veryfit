@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "feryfit/extended-warranty-banner",
+  "version": "0.1.0",
+  "title": "扩展保修横幅",
+  "category": "widgets",
+  "icon": "shield",
+  "description": "一个带有渐变背景、标题和三个特性项的扩展保修横幅区块。",
+  "example": {},
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "textdomain": "feryfit",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "source": "html",
+      "selector": ".extended-warranty-banner__title",
+      "default": "Activate Your Extended Warranty"
+    },
+    "feature1Icon": {
+      "type": "string",
+      "default": "wrench"
+    },
+    "feature1Text": {
+      "type": "string",
+      "default": "2-Year Protection"
+    },
+    "feature2Icon": {
+      "type": "string",
+      "default": "headphones"
+    },
+    "feature2Text": {
+      "type": "string",
+      "default": "24/7 Support"
+    },
+    "feature3Icon": {
+      "type": "string",
+      "default": "file-text"
+    },
+    "feature3Text": {
+      "type": "string",
+      "default": "Warranty Activation Benefits"
+    }
+  }
+}

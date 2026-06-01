@@ -1,0 +1,114 @@
+.wp-block-feryfit-contact-cards {
+	background: #F7F8F9;
+
+	.contact-cards {
+		max-width: 1400px;
+		margin: 0 auto;
+		display: flex;
+		gap: 20px;
+		padding: 20px;
+	}
+
+	.contact-card {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 40px 20px;
+		border-radius: 12px;
+		text-decoration: none;
+		transition: transform 0.2s ease, background-color 0.2s ease;
+		background-color: #F5F5F5;
+		min-height: 270px;
+
+		&:hover {
+			background-color: #CD3D1C;
+			transform: translateY(-2px);
+
+			.contact-card__text {
+				color: white;
+			}
+
+			.contact-card__icon svg path,
+			.contact-card__icon svg rect,
+			.contact-card__icon svg circle,
+			.contact-card__icon svg g {
+				fill: white;
+			}
+		}
+
+		&:active {
+			background-color: #CD3D1C;
+
+			.contact-card__text {
+				color: white;
+			}
+
+			.contact-card__icon svg path,
+			.contact-card__icon svg rect,
+			.contact-card__icon svg circle,
+			.contact-card__icon svg g {
+				fill: white;
+			}
+		}
+	}
+
+	.contact-card__icon {
+		margin-bottom: 20px;
+	}
+
+	.contact-card__text {
+		font-size: 16px;
+		font-weight: 600;
+		text-align: center;
+		line-height: 1.4;
+		color: #333;
+	}
+
+	@media (max-width: 768px) {
+		.contact-cards {
+			flex-direction: row;
+			gap: 16px;
+			padding: 16px;
+			justify-content: center;
+		}
+
+		.contact-card {
+			flex: 1;
+			min-width: 110px;
+			max-width: 130px;
+			padding: 20px 10px;
+			border-radius: 12px;
+			min-height: 130px;
+
+			&:active {
+				background-color: #CD3D1C;
+
+				.contact-card__text {
+					color: white;
+				}
+
+				.contact-card__icon svg path,
+				.contact-card__icon svg rect,
+				.contact-card__icon svg circle,
+				.contact-card__icon svg g {
+					fill: white;
+				}
+			}
+		}
+
+		.contact-card__icon {
+			margin-bottom: 12px;
+
+			svg {
+				width: 50px !important;
+				height: 50px !important;
+			}
+		}
+
+		.contact-card__text {
+			font-size: 12px;
+		}
+	}
+}

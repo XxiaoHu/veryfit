@@ -1,0 +1,162 @@
+/* Blog Single Post Styles */
+.blog-feedback-wrapper {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.blog-like-button-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 56px;
+    margin-bottom: 46px;
+}
+
+.blog-like-button {
+    width: 121.237px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4);
+    border-radius: 60px;
+    background: linear-gradient(90deg, #EB5F1A 0%, #E72019 100%);
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 26px;
+    border: none;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.blog-like-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(234, 88, 12, 0.5);
+}
+
+.blog-like-button:active {
+    transform: translateY(0);
+}
+
+.blog-like-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.blog-like-count {
+    font-weight: 700;
+}
+
+.blog-like-button.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.blog-like-button.loading .blog-like-icon {
+    animation: blog-pulse 1s infinite;
+}
+
+@keyframes blog-pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Blog Comment Section Styles */
+.blog-comment-section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.blog-comment-form {
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.blog-comment-textarea {
+    width: 100%;
+    padding: 16px;
+    height: 200px;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 1.5;
+    resize: vertical;
+    background: #F7F8F9;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.blog-comment-textarea::placeholder {
+    color: #adb5bd;
+}
+
+.blog-comment-textarea:focus {
+    outline: none;
+    border-color: #999;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.blog-comment-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 16px;
+    min-height: 48px;
+}
+
+.blog-comment-submit {
+    padding: 0 21px;
+    height: 48px;
+    border-radius: 6px;
+    border: 1px solid #E4E4E4;
+    background: #fff;
+    cursor: pointer;
+    color: #000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    transition: all 0.3s ease;
+}
+
+.blog-comment-submit:hover {
+    transform: translateY(-1px);
+    background: #F7F8F9;
+}
+
+.blog-comment-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.blog-comment-submit.loading {
+    opacity: 0.7;
+}
+
+.blog-submit-text {
+    font-size: 16px;
+}
+
+.blog-submit-icon {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+}
+
+.blog-submit-icon svg {
+    flex-shrink: 0;
+}

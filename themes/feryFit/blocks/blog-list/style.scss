@@ -1,0 +1,217 @@
+.blog-list {
+    margin-bottom: 40px;
+}
+
+.blog-list__title {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 24px 0;
+    color: #1d2327;
+}
+
+.blog-list__container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.blog-list__card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    padding-bottom: 25px;
+}
+
+.blog-list__card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    padding: 29px 40px 0 46px;
+}
+
+.blog-list__category-tag {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 20px;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 26px;
+    /* 144.444% */
+}
+
+.blog-list__category-tag--red {
+    background: #dc2626;
+    color: #fff;
+}
+
+.blog-list__category-tag--black {
+    background: #1d2327;
+    color: #fff;
+}
+
+.blog-list__card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blog-list__card-icon img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.blog-list__items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.blog-list__item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: 46px;
+    margin-right: 40px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    position: relative;
+}
+
+.blog-list__item::after {
+    content: '';
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0;
+    height: 1px;
+    background-color: #f0f0f0;
+}
+
+.blog-list__item:last-child::after {
+    display: none;
+}
+
+.blog-list__item:hover {
+    background: #f9f9f9;
+}
+
+.blog-list__item-title {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #000;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 60px;
+    /* 375% */
+}
+
+.blog-list__item-date {
+    flex-shrink: 0;
+    color: #000;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 60px;
+    /* 375% */
+}
+
+.blog-list__item-arrow {
+    font-size: 20px;
+    color: #000;
+    flex-shrink: 0;
+    font-weight: 400;
+}
+
+.blog-list__item a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+    .wp-block-feryfit-blog-list {
+        margin-top: var(--blog-list-mobile-margin-top, 40px) !important;
+    }
+
+    .blog-list__card-icon img {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+    }
+
+    .blog-list__container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 0 12px;
+    }
+
+    .blog-list__title {
+        font-size: 22px;
+        padding: 0 16px;
+    }
+
+    .blog-list__card-header {
+        padding: 21px 21px 10px 15px;
+    }
+
+    .blog-list__card {
+        margin-bottom: 0px;
+    }
+
+    .blog-list__category-tag {
+        padding: 4px 14px;
+        font-size: 12px;
+    }
+
+    .blog-list__item {
+        // padding: 14px 16px;
+        margin-left: 19px;
+        margin-right: 20px;
+        gap: 12px;
+    }
+
+    .blog-list__item::after {
+        left: 0px;
+        right: 0px;
+    }
+
+    .blog-list__item-title {
+        color: #000;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 40px;
+        /* 285.714% */
+    }
+
+    .blog-list__item-date {
+        font-size: 13px;
+        color: #000;
+        font-family: Inter;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 40px;
+    }
+
+    .blog-list__item a {
+        gap: 12px;
+    }
+}

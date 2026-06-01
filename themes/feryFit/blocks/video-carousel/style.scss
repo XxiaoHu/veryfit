@@ -1,0 +1,388 @@
+/**
+ * Frontend styles for the video carousel block
+ */
+
+.video-carousel {
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: 0 20px;
+	position: relative;
+}
+
+.video-carousel__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 30px;
+}
+
+.video-carousel__title {
+	margin: 0;
+	color: #000;
+	text-align: center;
+	font-family: Inter;
+	font-size: 32px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 26px;
+	/* 81.25% */
+}
+
+.video-carousel__learn-more {
+	color: #CD3D1C;
+	font-family: Inter;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 26px;
+	/* 162.5% */
+	text-decoration-line: underline;
+	text-decoration-style: solid;
+	text-decoration-skip-ink: auto;
+	text-decoration-thickness: auto;
+	text-underline-offset: auto;
+	text-underline-position: from-font;
+}
+
+.video-carousel__learn-more:hover {
+	color: #c0392b;
+}
+
+.video-carousel__learn-more .video-carousel__arrow {
+	margin-left: 8px;
+	font-size: 14px;
+}
+
+.video-carousel__wrapper {
+	position: relative;
+}
+
+.video-carousel__prev,
+.video-carousel__next {
+	width: 60px;
+	height: 60px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s ease;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 10;
+	border: none;
+	padding: 0;
+	background: transparent;
+}
+
+.video-carousel__prev {
+	left: -80px;
+}
+
+.video-carousel__next {
+	right: -80px;
+}
+
+.video-carousel__prev:hover svg path:first-child,
+.video-carousel__next:hover svg path:first-child {
+	fill: #e74c3c;
+}
+
+.video-carousel__items {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: repeat(2, 260px);
+	gap: 20px;
+	overflow: hidden;
+	height: 560px;
+}
+
+.video-carousel__item {
+	background: #fff;
+	border-radius: 12px;
+	overflow: hidden;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+
+.video-carousel__item-link {
+	display: block;
+	color: inherit;
+	text-decoration: none;
+}
+
+.video-carousel__thumbnail-wrapper {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	aspect-ratio: 16/9;
+}
+
+.video-carousel__video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.3s ease;
+}
+
+
+.video-carousel__play-btn {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 50px;
+	height: 50px;
+	z-index: 2;
+	pointer-events: none;
+}
+
+.video-carousel__duration {
+	position: absolute;
+	bottom: 12px;
+	right: 12px;
+	background: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	font-size: 13px;
+	font-weight: 500;
+	padding: 4px 10px;
+	border-radius: 4px;
+}
+
+.video-carousel__item-title-box {
+	padding: 15px;
+	box-sizing: border-box;
+	height: 120px;
+	display: flex;
+	flex-direction: column;
+}
+
+.video-carousel__item-title {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	color: #000;
+	font-family: Inter;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 1.4;
+}
+
+.video-carousel__pagination {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 30px;
+}
+
+.video-carousel__pagination-dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: #ddd;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.video-carousel__pagination-dot.active {
+	background: #e74c3c;
+	transform: scale(1.2);
+}
+
+
+
+@media (max-width: 1024px) {
+	.video-carousel {
+		padding: 30px 15px;
+	}
+
+	.video-carousel__items {
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(2, 200px);
+		gap: 15px;
+		height: 430px;
+	}
+
+	.video-carousel__title {
+		font-size: 22px;
+	}
+
+	.video-carousel__item-title {
+		font-size: 13px;
+	}
+}
+
+@media (max-width: 768px) {
+	.video-carousel {
+		padding: 25px 15px;
+	}
+
+	// .video-carousel__header {
+	// 	flex-direction: column;
+	// 	gap: 15px;
+	// 	text-align: center;
+	// }
+
+	.video-carousel__title {
+		color: #000;
+		font-family: Inter;
+		font-size: 24px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 26px;
+		/* 108.333% */
+	}
+
+	.video-carousel__items {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(3, 180px);
+		gap: 15px;
+		height: 580px;
+	}
+
+	.video-carousel__prev,
+	.video-carousel__next {
+		width: 40px;
+		height: 40px;
+	}
+
+	.video-carousel__prev .video-carousel__arrow,
+	.video-carousel__next .video-carousel__arrow {
+		font-size: 20px;
+	}
+
+	.video-carousel__item-title-box {
+		height: 76px;
+		padding: 0;
+	}
+
+	.video-carousel__item-title {
+		font-size: 13px;
+		-webkit-line-clamp: 3;
+	}
+
+	.video-carousel__play-btn {
+		width: 36px;
+		height: 36px;
+	}
+
+	.video-carousel__duration {
+		font-size: 12px;
+		padding: 3px 8px;
+	}
+
+	.video-carousel__pagination {
+		margin-top: 20px;
+		gap: 8px;
+	}
+
+	.video-carousel__pagination-dot {
+		width: 8px;
+		height: 8px;
+	}
+}
+
+@media (max-width: 480px) {
+	.video-carousel {
+		padding: 20px 15px;
+	}
+
+	.video-carousel__header {
+		margin-bottom: 20px;
+	}
+
+	.video-carousel__title {
+		font-size: 18px;
+	}
+
+	.video-carousel__learn-more {
+		color: #CD3D1C;
+		font-family: Inter;
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 26px;
+		/* 185.714% */
+		text-decoration-line: underline;
+		text-decoration-style: solid;
+		text-decoration-skip-ink: auto;
+		text-decoration-thickness: auto;
+		text-underline-offset: auto;
+		text-underline-position: from-font;
+	}
+
+	.video-carousel__items {
+		grid-template-columns: repeat(1, 1fr);
+		gap: 15px;
+	}
+
+	.video-carousel__prev,
+	.video-carousel__next {
+		display: none;
+	}
+
+
+
+	.video-carousel__item-title-box {
+		height: 76px;
+		display: flex;
+		padding: 0 12px;
+		justify-content: center;
+	}
+
+	.video-carousel__item-title {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 3;
+		overflow: hidden;
+		color: #000;
+		font-family: Inter;
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 16px;
+	}
+
+	.video-carousel__duration {
+		font-size: 11px;
+		padding: 2px 6px;
+		bottom: 8px;
+		right: 8px;
+	}
+
+	.video-carousel__pagination {
+		margin-top: 15px;
+		gap: 6px;
+	}
+
+	.video-carousel__pagination-dot {
+		width: 7px;
+		height: 7px;
+	}
+}
+
+@media (max-width: 360px) {
+	.video-carousel {
+		padding: 15px 10px;
+	}
+
+	.video-carousel__title {
+		font-size: 16px;
+	}
+
+	.video-carousel__learn-more {
+		font-size: 12px;
+	}
+
+	.video-carousel__item-title {
+		font-size: 12px;
+		padding: 12px;
+	}
+
+}

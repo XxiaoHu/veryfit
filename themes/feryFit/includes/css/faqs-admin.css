@@ -1,0 +1,169 @@
+/**
+ * FAQs Admin Styles
+ */
+
+.faqs-manager-wrap {
+    max-width: 100%;
+}
+
+.faqs-manager-container {
+    margin-top: 20px;
+}
+
+.faqs-list-panel {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #c3c4c7;
+    background: #f6f7f7;
+}
+
+.panel-header h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.faqs-list {
+    padding: 10px;
+}
+
+.faq-item {
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
+}
+
+.faq-item:hover {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.faq-item-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    background: #f6f7f7;
+    border-bottom: 1px solid #dcdcde;
+}
+
+.faq-title {
+    flex: 1;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.faq-title .dashicons-admin-post {
+    color: #d97706;
+    margin-right: 5px;
+}
+
+.faq-item-pinned {
+    border-color: #fbbf24;
+    border-width: 2px;
+}
+
+.faq-item-pinned .faq-item-header {
+    background: #fffbeb;
+}
+
+.faq-pin-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    background: #fbbf24;
+    color: #78350f;
+}
+
+.faq-pin-badge .dashicons {
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+}
+
+.faq-status {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.faq-status.active {
+    background: #d1fae5;
+    color: #059669;
+}
+
+.faq-status.inactive {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.faq-item-content {
+    padding: 15px;
+}
+
+.faq-answer {
+    color: #50575e;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.faq-categories {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e5e7eb;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.faq-categories .dashicons {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    margin-right: 4px;
+}
+
+.faq-item-actions {
+    display: flex;
+    gap: 8px;
+    padding: 12px 15px;
+    border-top: 1px solid #dcdcde;
+    background: #f9f9f9;
+}
+
+.faq-item-actions .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.faq-item-actions .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.no-faqs {
+    padding: 40px 20px;
+    text-align: center;
+    color: #646970;
+}
+
+.notice {
+    margin: 10px 0;
+}

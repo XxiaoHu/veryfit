@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "feryfit/contact-form",
+  "version": "0.1.0",
+  "title": "Contact Form",
+  "category": "widgets",
+  "icon": "email",
+  "description": "联系表单，用户可以提交Email、Name和Message",
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "textdomain": "feryfit",
+  "attributes": {
+    "emailLabel": {
+      "type": "string",
+      "default": "Email"
+    },
+    "emailPlaceholder": {
+      "type": "string",
+      "default": ""
+    },
+    "nameLabel": {
+      "type": "string",
+      "default": "Name"
+    },
+    "namePlaceholder": {
+      "type": "string",
+      "default": "Full Name or Preferred Name"
+    },
+    "messageLabel": {
+      "type": "string",
+      "default": "Message"
+    },
+    "submitButtonText": {
+      "type": "string",
+      "default": "Activited Now"
+    }
+  },
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js"
+}

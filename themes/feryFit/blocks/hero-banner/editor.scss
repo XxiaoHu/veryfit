@@ -1,0 +1,155 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+ h1, h2, h3, h4, h5, h6, p, div {
+    margin: 0;
+    padding: 0;
+}
+.wp-block-feryfit-hero-banner {
+	border: 2px dashed #ccc;
+	min-height: 480px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.hero-banner__upload-prompt {
+	padding: 40px;
+	text-align: center;
+	background: #f0f0f0;
+	border-radius: 8px;
+}
+
+.hero-banner__background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: #21759b;
+}
+
+.hero-banner__content {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	text-align: center;
+	color: #fff;
+}
+
+.hero-banner__keywords {
+	margin-top: 15px;
+	width: 100%;
+	max-width: 600px;
+}
+
+.hero-banner__keywords-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	justify-content: center;
+}
+
+.hero-banner__keyword-tag {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 12px;
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 20px;
+	font-size: 14px;
+}
+
+.hero-banner__keyword-remove {
+	background: rgba(255, 255, 255, 0.3);
+	border: none;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	cursor: pointer;
+	font-size: 16px;
+	line-height: 1;
+	padding: 0;
+}
+
+.hero-banner__keyword-remove:hover {
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.hero-banner__search-form {
+	display: flex;
+	align-items: center;
+	max-width: 560px;
+	width: 100%;
+	margin-top: 30px;
+	background: #fff;
+	border-radius: 4px;
+	overflow: hidden;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.hero-banner__search-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 16px;
+	color: #999;
+}
+
+.hero-banner__search-input {
+	flex: 1;
+	border: none;
+	outline: none;
+	padding: 12px 16px;
+	font-size: 14px;
+	font-family: inherit;
+	background: transparent;
+	color: #333;
+}
+
+.hero-banner__search-input::placeholder {
+	color: #999;
+}
+
+.hero-banner__search-input:disabled {
+	cursor: not-allowed;
+	opacity: 0.7;
+}
+
+.hero-banner__search-button {
+	background: #E53935;
+	color: #fff;
+	border: none;
+	padding: 12px 24px;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.hero-banner__search-button:hover {
+	background: #c62828;
+}
+
+.hero-banner__search-button:disabled {
+	cursor: not-allowed;
+	opacity: 0.7;
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "feryfit/stats-banner",
+  "version": "0.1.0",
+  "title": "统计横幅",
+  "category": "widgets",
+  "icon": "bar-chart",
+  "description": "带有背景图、标题和副标题的统计横幅区块，支持PC和移动端响应式布局。",
+  "example": {},
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ]
+  },
+  "textdomain": "feryfit",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "source": "html",
+      "selector": ".stats-banner__title",
+      "default": "200,000+"
+    },
+    "subtitle": {
+      "type": "string",
+      "source": "html",
+      "selector": ".stats-banner__subtitle",
+      "default": "VeryFit users have activated their warranty through this page"
+    },
+    "backgroundImage": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}

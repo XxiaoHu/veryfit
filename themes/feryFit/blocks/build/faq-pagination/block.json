@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "feryfit/faq-pagination",
+  "version": "0.1.0",
+  "title": "FAQ分页列表",
+  "category": "widgets",
+  "icon": "help",
+  "description": "带有分页功能的FAQ常见问题列表区块。",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "textdomain": "feryfit",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "FAQ"
+    },
+    "postsPerPage": {
+      "type": "number",
+      "default": 10
+    }
+  }
+}

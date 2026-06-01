@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "feryfit/blog-list",
+  "version": "0.1.0",
+  "title": "博客列表",
+  "category": "widgets",
+  "icon": "list-view",
+  "description": "展示博客文章列表的区块。",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "textdomain": "feryfit",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "attributes": {
+    "desktopTopMargin": {
+      "type": "number",
+      "default": 78
+    },
+    "mobileTopMargin": {
+      "type": "number",
+      "default": 40
+    },
+    "postsPerCategory": {
+      "type": "number",
+      "default": 6
+    }
+  }
+}

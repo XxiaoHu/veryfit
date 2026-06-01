@@ -1,0 +1,158 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "feryfit/warranty-application",
+	"title": "保修申请表单",
+	"category": "widgets",
+	"icon": "clipboard-list",
+	"description": "扩展保修申请表单",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "Extended Warranty Application"
+		},
+		"subtitle": {
+			"type": "string",
+			"default": "Takes less than 1 minute. You only need to do this once"
+		},
+		"orderNumberLabel": {
+			"type": "string",
+			"default": "Order Number"
+		},
+		"orderNumberPlaceholder": {
+			"type": "string",
+			"default": "123-1234567-1234567"
+		},
+		"orderHelpLink": {
+			"type": "string",
+			"default": "How can i find Order Number?"
+		},
+		"orderHelpTooltip": {
+			"type": "string",
+			"default": "If this was a gift or you don't have the Amazon account, try your best to contact our support and we'll try our best to help. Warranty activation"
+		},
+		"emailLabel": {
+			"type": "string",
+			"default": "Email"
+		},
+		"nameLabel": {
+			"type": "string",
+			"default": "Name"
+		},
+		"namePlaceholder": {
+			"type": "string",
+			"default": "Full Name or Preferred Name"
+		},
+		"countryLabel": {
+			"type": "string",
+			"default": "Country"
+		},
+		"optionalLabel": {
+			"type": "string",
+			"default": "Optional"
+		},
+		"experienceRatingLabel": {
+			"type": "string",
+			"default": "Experience Rating (1-5)"
+		},
+		"ratingQuestion": {
+			"type": "string",
+			"default": "How is your experience so far?"
+		},
+		"checkboxText": {
+			"type": "string",
+			"default": "I'd like to receive tips and important updates for my device. I'm interested in future test programs (VeryFit Lab)"
+		},
+		"submitButtonText": {
+			"type": "string",
+			"default": "Submit Application"
+		},
+		"noOrderLinkText": {
+			"type": "string",
+			"default": "No order number?"
+		},
+		"noOrderLinkUrl": {
+			"type": "string",
+			"default": "#"
+		},
+		"modalTitle": {
+			"type": "string",
+			"default": "Application Submitted"
+		},
+		"modalMessage": {
+			"type": "string",
+			"default": "Your request is in progress."
+		},
+		"modalDescription": {
+			"type": "string",
+			"default": "To complete activation and ensure everything is set up correctly, you may continue with our support team below."
+		},
+		"modalWhatsappText": {
+			"type": "string",
+			"default": "Chat on WhatsApp"
+		},
+		"modalFacebookText": {
+			"type": "string",
+			"default": "Message us on Facebook"
+		},
+		"modalBenefitsNote": {
+			"type": "string",
+			"default": "Warranty activation benefits apply once activation is completed."
+		},
+		"productImage1": {
+			"type": "string",
+			"default": ""
+		},
+		"productImage2": {
+			"type": "string",
+			"default": ""
+		},
+		"productImage3": {
+			"type": "string",
+			"default": ""
+		},
+		"productImage4": {
+			"type": "string",
+			"default": ""
+		},
+		"productImage5": {
+			"type": "string",
+			"default": ""
+		},
+		"productImage6": {
+			"type": "string",
+			"default": ""
+		},
+		"productImage7": {
+			"type": "string",
+			"default": ""
+		},
+		"productImage8": {
+			"type": "string",
+			"default": ""
+		},
+		"productImage9": {
+			"type": "string",
+			"default": ""
+		},
+		"productImage10": {
+			"type": "string",
+			"default": ""
+		},
+		"errorModalTitle": {
+			"type": "string",
+			"default": "提交失败"
+		},
+		"errorModalMessage": {
+			"type": "string",
+			"default": "抱歉，提交失败，请稍后重试或联系客服。"
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}

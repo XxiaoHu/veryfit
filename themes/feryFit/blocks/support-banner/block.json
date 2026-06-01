@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "feryfit/support-banner",
+	"version": "0.1.0",
+	"title": "支持横幅",
+	"category": "widgets",
+	"icon": "headphones",
+	"description": "一个带有图标、标题和按钮的支持横幅区块，背景为白色。",
+	"example": {},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	},
+	"textdomain": "feryfit",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"iconId": {
+			"type": "number",
+			"default": 0
+		},
+		"iconUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"source": "html",
+			"selector": ".support-banner__title",
+			"default": "Still need 1-on-1 support?"
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "Contact Support"
+		},
+		"buttonUrl": {
+			"type": "string",
+			"default": "#"
+		}
+	}
+}

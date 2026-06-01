@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "feryfit/video-carousel",
+	"version": "0.1.0",
+	"title": "视频轮播图",
+	"category": "widgets",
+	"icon": "video-alt3",
+	"description": "展示视频轮播图的区块。",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "feryfit",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php",
+	"attributes": {
+		"sectionTitle": {
+			"type": "string",
+			"default": "Hot Video Section"
+		}
+	}
+}

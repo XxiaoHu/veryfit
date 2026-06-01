@@ -1,0 +1,45 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "feryfit/faq-list",
+  "version": "0.1.0",
+  "title": "FAQ列表",
+  "category": "widgets",
+  "icon": "help",
+  "description": "展示FAQ常见问题列表的区块。",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "textdomain": "feryfit",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "TOP FAQS"
+    },
+    "learnMoreText": {
+      "type": "string",
+      "default": "Learn More >"
+    },
+    "learnMoreUrl": {
+      "type": "string",
+      "default": "#"
+    },
+    "postsPerPage": {
+      "type": "number",
+      "default": 8
+    },
+    "desktopTopMargin": {
+      "type": "number",
+      "default": 40
+    },
+    "mobileTopMargin": {
+      "type": "number",
+      "default": 20
+    }
+  }
+}

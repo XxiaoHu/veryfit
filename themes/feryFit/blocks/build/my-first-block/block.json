@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "feryfit/my-first-block",
+  "version": "0.1.0",
+  "title": "我的第一个区块",
+  "category": "widgets",
+  "icon": "smiley",
+  "description": "一个可以在后台编辑内容的示例区块。",
+  "example": {},
+  "supports": {
+    "html": false
+  },
+  "textdomain": "feryfit",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js",
+  "attributes": {
+    "content": {
+      "type": "string",
+      "default": "在这里输入内容...",
+      "source": "html",
+      "selector": "p"
+    }
+  }
+}

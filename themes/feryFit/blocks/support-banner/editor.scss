@@ -1,0 +1,15 @@
+/**
+ * Editor styles for the support banner block
+ */
+
+.wp-block-feryfit-support-banner {
+	.support-banner {
+		&__content {
+			pointer-events: none;
+		}
+
+		&__title {
+			pointer-events: auto;
+		}
+	}
+}

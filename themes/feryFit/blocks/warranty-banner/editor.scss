@@ -1,0 +1,17 @@
+/**
+ * Editor styles for the warranty banner block
+ */
+
+.wp-block-feryfit-warranty-banner {
+	.warranty-banner {
+		// 编辑器中的样式调整
+		&__content {
+			pointer-events: none; // 允许点击穿透到 RichText
+		}
+
+		&__title,
+		&__subtitle {
+			pointer-events: auto; // 允许编辑
+		}
+	}
+}

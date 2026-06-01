@@ -1,0 +1,13 @@
+/**
+ * Editor styles for the extended warranty banner block
+ */
+
+.extended-warranty-banner {
+	&__features {
+		flex-wrap: wrap;
+	}
+
+	&__feature {
+		flex-shrink: 0;
+	}
+}
