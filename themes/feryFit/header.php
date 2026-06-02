@@ -138,7 +138,7 @@
     <!-- 移动端：右侧语言选择抽屉 -->
     <div class="lang-drawer" id="lang-drawer">
         <div class="drawer-header">
-            <h3><?php _e( '选择语言', 'feryfit' ); ?></h3>
+            <h3><?php _e( 'Language', 'feryfit' ); ?></h3>
             <button class="drawer-close" aria-label="<?php esc_attr_e( '关闭', 'feryfit' ); ?>">&times;</button>
         </div>
         <div class="lang-drawer-list">
