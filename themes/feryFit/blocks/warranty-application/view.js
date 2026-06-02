@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	const form = document.getElementById('warranty-application-form');
 	if (!form) return;
 
+	let lastOrderNumber = '';
+
 	const orderHelpLink = form.querySelector('.order-help-link');
 	const orderHelpTooltip = form.querySelector('#order-help-tooltip');
 	const orderInput = form.querySelector('input[name="order_number"]');
@@ -73,6 +75,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	form.addEventListener('submit', function (e) {
 		e.preventDefault();
 		const formData = new FormData(form);
+		
+		lastOrderNumber = formData.get('order_number') || '';
+
 		const submitButton = form.querySelector('.submit-btn');
 
 		if (submitButton.classList.contains('loading')) {
@@ -160,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					<p class="success-message">${modalMessage}</p>
 					<p class="success-description">${modalDescription}</p>
 					<div class="support-options">
-						<div class="support-option">
+						<div class="support-option" data-contact-type="whatsapp">
 							<div class="support-icon whatsapp-icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none">
   <path d="M43.9921 38.874C44.3131 38.874 45.5101 39.414 47.5831 40.494C49.6591 41.574 50.7571 42.225 50.8801 42.444C50.9281 42.567 50.9551 42.753 50.9551 42.999C50.9551 43.809 50.7451 44.739 50.3251 45.798C49.9351 46.755 49.0651 47.559 47.7121 48.21C46.3621 48.861 45.1111 49.188 43.9561 49.185C42.5551 49.185 40.2241 48.423 36.9571 46.905C34.6227 45.8482 32.5009 44.374 30.6961 42.555C28.9261 40.764 27.1111 38.493 25.2451 35.745C23.4751 33.114 22.6051 30.735 22.6291 28.599V28.302C22.7041 26.067 23.6131 24.129 25.3531 22.482C25.9441 21.942 26.5831 21.672 27.2731 21.672C27.4171 21.672 27.6391 21.693 27.9331 21.732C28.2271 21.768 28.4611 21.786 28.6321 21.786C29.0971 21.786 29.4241 21.864 29.6071 22.026C29.7931 22.185 29.9821 22.521 30.1771 23.037C30.3751 23.529 30.7801 24.609 31.3921 26.277C32.0071 27.948 32.3131 28.866 32.3131 29.037C32.3131 29.556 31.8901 30.261 31.0441 31.158C30.1951 32.055 29.7721 32.625 29.7721 32.868C29.7721 33.042 29.8321 33.228 29.9551 33.423C30.7891 35.214 32.0431 36.897 33.7111 38.466C35.0881 39.768 36.9391 41.007 39.2731 42.186C39.5155 42.3421 39.795 42.4311 40.0831 42.444C40.4521 42.444 41.1151 41.85 42.0721 40.659C43.0291 39.468 43.6681 38.874 43.9861 38.874H43.9921ZM36.5161 58.392C39.6007 58.3994 42.6539 57.7724 45.4861 56.55C48.2392 55.3925 50.7446 53.7172 52.8661 51.615C54.9697 49.493 56.6461 46.9866 57.8041 44.232C59.0265 41.3999 59.6534 38.3467 59.6461 35.262C59.653 32.1784 59.026 29.1262 57.8041 26.295C56.6466 23.5418 54.9713 21.0365 52.8691 18.915C50.7461 16.8111 48.2386 15.1347 45.4831 13.977C42.6519 12.755 39.5997 12.1281 36.5161 12.135C33.4324 12.1281 30.3803 12.755 27.5491 13.977C24.7948 15.1342 22.2884 16.8095 20.1661 18.912C18.0635 21.0344 16.3882 23.5408 15.2311 26.295C14.0087 29.1271 13.3817 32.1804 13.3891 35.265C13.3891 40.248 14.8591 44.766 17.8081 48.816L14.8981 57.396L23.8081 54.561C27.5663 57.0787 31.9925 58.413 36.5161 58.392ZM36.5161 7.49402C40.2721 7.49402 43.8661 8.23202 47.2891 9.70202C50.5942 11.0943 53.6015 13.1077 56.1481 15.633C58.6724 18.1797 60.6848 21.1871 62.0761 24.492C63.5442 27.8923 64.2968 31.5583 64.2871 35.262C64.2871 39.021 63.5491 42.612 62.0761 46.035C60.6848 49.34 58.6724 52.3473 56.1481 54.894C53.6016 57.4194 50.5942 59.4328 47.2891 60.825C43.8886 62.2921 40.2225 63.0437 36.5191 63.033C31.8138 63.0552 27.1825 61.8628 23.0731 59.571L7.71606 64.506L12.7261 49.59C10.0908 45.2791 8.71301 40.3175 8.74806 35.265C8.74806 31.506 9.48306 27.915 10.9561 24.492C12.3479 21.1858 14.3614 18.1774 16.8871 15.63C19.432 13.1063 22.4373 11.094 25.7401 9.70202C29.1415 8.23452 32.8086 7.48293 36.5131 7.49402H36.5161Z" fill="#999999"/>
@@ -168,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
 							</div>
 							<span class="support-text">${modalWhatsapp}</span>
 						</div>
-						<div class="support-option">
+						<div class="support-option" data-contact-type="facebook">
 							<div class="support-icon facebook-icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
   <g clip-path="url(#clip0_133_486)">
@@ -230,6 +235,49 @@ document.addEventListener('DOMContentLoaded', function () {
 				closeModal();
 			}
 		}, { once: true });
+
+		const currentLang = document.documentElement.lang || 'en';
+		const pageTitle = document.title || '';
+
+		fetch('/wp-json/feryfit/v1/customer-service')
+			.then(function (response) {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json();
+			})
+			.then(function (data) {
+				const supportOptions = modal.querySelectorAll('.support-option');
+				supportOptions.forEach(function (option) {
+					const type = option.getAttribute('data-contact-type');
+					if (type === 'whatsapp' && data.whatsapp) {
+						let whatsappUrl = data.whatsapp;
+						const separator = whatsappUrl.indexOf('?') !== -1 ? '&' : '?';
+						const messageParts = [];
+						if (pageTitle) {
+							messageParts.push('Page:' + pageTitle);
+						}
+						if (currentLang) {
+							messageParts.push('lang:' + currentLang);
+						}
+						if (lastOrderNumber) {
+							messageParts.push('Order:' + lastOrderNumber);
+						}
+						const messageText = messageParts.join('\n');
+						whatsappUrl += separator + 'text=' + encodeURIComponent(messageText);
+						option.addEventListener('click', function () {
+							window.open(whatsappUrl, '_blank');
+						});
+					} else if (type === 'facebook' && data.facebook) {
+						option.addEventListener('click', function () {
+							window.open(data.facebook, '_blank');
+						});
+					}
+				});
+			})
+			.catch(function (error) {
+				console.error('Warranty modal: Failed to load contact data:', error);
+			});
 	}
 
 	function showErrorModal(customMessage) {
