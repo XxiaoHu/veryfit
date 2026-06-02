@@ -19,7 +19,6 @@ if ( post_password_required() ) {
 ?>
 
 <div id="comments" class="comments-area">
- 99999
     <?php
     // You can start editing here -- including this comment!
     if ( have_comments() ) :

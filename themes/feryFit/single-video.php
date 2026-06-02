@@ -7,9 +7,9 @@
  */
 
 get_header(); ?>
-
-<main id="primary" class="site-main">
 	<?php feryfit_breadcrumb_render(); ?>
+<main id="primary" class="site-main">
+
 
 	<?php
 	while (have_posts()) :
