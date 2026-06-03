@@ -46,6 +46,15 @@
 	position: relative;
 }
 
+.form-group--honeypot {
+	position: absolute !important;
+	left: -9999px !important;
+	opacity: 0 !important;
+	height: 0 !important;
+	overflow: hidden !important;
+	pointer-events: none;
+}
+
 .form-group label {
 	width: 140px;
 	color: #000;

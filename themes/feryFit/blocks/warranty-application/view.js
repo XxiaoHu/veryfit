@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	form.addEventListener('submit', function (e) {
 		e.preventDefault();
 		const formData = new FormData(form);
-		
+
 		lastOrderNumber = formData.get('order_number') || '';
 
 		const submitButton = form.querySelector('.submit-btn');
@@ -89,10 +89,24 @@ document.addEventListener('DOMContentLoaded', function () {
 		const originalText = submitButton.textContent;
 		submitButton.innerHTML = '<span class="loading-spinner"></span> Loading...';
 
-		fetch('/wp-json/feryfit/v1/submit-warranty', {
-			method: 'POST',
-			body: formData,
+		fetch('/wp-json/feryfit/v1/warranty-nonce', {
+			method: 'GET',
 			credentials: 'same-origin'
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.nonce) {
+				return fetch('/wp-json/feryfit/v1/submit-warranty', {
+					method: 'POST',
+					body: formData,
+					credentials: 'same-origin',
+					headers: {
+						'X-FeryFit-Nonce': data.nonce
+					}
+				});
+			} else {
+				throw new Error('Failed to get nonce');
+			}
 		})
 			.then(response => response.json())
 			.then(data => {

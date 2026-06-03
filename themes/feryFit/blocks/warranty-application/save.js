@@ -91,6 +91,12 @@ export default function save({ attributes }) {
 				<h2 className="warranty-application__title">{title}</h2>
 				<p className="warranty-application__subtitle">{subtitle}</p>
 				<form className="warranty-application__form" id="warranty-application-form">
+					<div className="form-group form-group--honeypot">
+						<label for="hp_website">Leave this empty</label>
+						<div className="form-content">
+							<input type="text" name="website" id="hp_website" tabIndex="-1" autoComplete="off" />
+						</div>
+					</div>
 					<div className="form-group">
 						<label>{orderNumberLabel} <span className="required">*</span></label>
 						<div className="form-content">

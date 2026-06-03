@@ -40,6 +40,12 @@ class FeryFit_Warranty_Manager {
 		register_rest_route( 'feryfit/v1', '/submit-warranty', array(
 			'methods' => 'POST',
 			'callback' => array( $this, 'handle_form_submission' ),
+			'permission_callback' => array( $this, 'verify_warranty_nonce' ),
+		) );
+
+		register_rest_route( 'feryfit/v1', '/warranty-nonce', array(
+			'methods' => 'GET',
+			'callback' => array( $this, 'get_warranty_nonce' ),
 			'permission_callback' => '__return_true',
 		) );
 
@@ -56,8 +62,36 @@ class FeryFit_Warranty_Manager {
 		) );
 	}
 
+	public function verify_warranty_nonce( $request ) {
+		$nonce = $request->get_header( 'x_feryfit_nonce' );
+		if ( ! $nonce ) {
+			$nonce = $request->get_param( '_wpnonce' );
+		}
+		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'feryfit_warranty_nonce' ) ) {
+			return new WP_Error( 'invalid_nonce', 'Invalid nonce', array( 'status' => 403 ) );
+		}
+		return true;
+	}
+
+	public function get_warranty_nonce() {
+		return array( 'nonce' => wp_create_nonce( 'feryfit_warranty_nonce' ) );
+	}
+
 	public function handle_form_submission( $request ) {
 		global $wpdb;
+
+		$user_ip = isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '';
+		$rate_limit_key = 'feryfit_warranty_rate_limit_' . md5( $user_ip );
+		$current_count = get_transient( $rate_limit_key );
+
+		if ( $current_count !== false && $current_count >= 3 ) {
+			return new WP_Error( 'rate_limit', 'Too many requests. Please try again later.', array( 'status' => 429 ) );
+		}
+
+		$honeypot = $request->get_param( 'website' );
+		if ( ! empty( $honeypot ) ) {
+			return new WP_Error( 'spam_detected', 'Submission rejected.', array( 'status' => 403 ) );
+		}
 
 		$order_number = sanitize_text_field( $request->get_param( 'order_number' ) );
 		$email = sanitize_email( $request->get_param( 'email' ) );
@@ -98,6 +132,11 @@ class FeryFit_Warranty_Manager {
 		);
 
 		if ( $result ) {
+			if ( $current_count === false ) {
+				set_transient( $rate_limit_key, 1, 60 );
+			} else {
+				set_transient( $rate_limit_key, $current_count + 1, 60 );
+			}
 			return array( 'success' => true, 'message' => 'Application submitted successfully!' );
 		} else {
 			return new WP_Error( 'db_error', 'Failed to save application', array( 'status' => 500 ) );
