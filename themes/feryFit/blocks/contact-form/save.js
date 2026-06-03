@@ -18,7 +18,6 @@ import { useBlockProps } from '@wordpress/block-editor';
 export default function save({ attributes }) {
 	const { emailLabel, emailPlaceholder, nameLabel, namePlaceholder, messageLabel, submitButtonText } = attributes;
 	const blockProps = useBlockProps.save();
-	console.log(999);
 	
 	return (
 		<div {...blockProps}>

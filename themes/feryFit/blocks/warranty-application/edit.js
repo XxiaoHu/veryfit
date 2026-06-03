@@ -1,6 +1,7 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { PanelBody, TextControl, TextareaControl, Button } from '@wordpress/components';
+import { PanelBody, TextControl, TextareaControl, Button, SelectControl } from '@wordpress/components';
+import { useSelect } from '@wordpress/data';
 import './editor.scss';
 
 const DEFAULT_IMAGES = [
@@ -64,6 +65,25 @@ export default function Edit({ attributes, setAttributes }) {
 		productImage10
 	} = attributes;
 	const blockProps = useBlockProps();
+
+	const pages = useSelect( function ( select ) {
+		const { getEntityRecords } = select( 'core' );
+		const records = getEntityRecords( 'postType', 'page', {
+			per_page: -1,
+			orderby: 'title',
+			order: 'asc',
+			status: 'publish',
+		} );
+		if ( ! records ) {
+			return [];
+		}
+		return records.map( function ( page ) {
+			return {
+				value: page.link || '',
+				label: page.title.rendered || page.title.raw || __( '(无标题)' ),
+			};
+		} );
+	}, [] );
 
 	return (
 		<div { ...blockProps }>
@@ -149,11 +169,17 @@ export default function Edit({ attributes, setAttributes }) {
 					value={ noOrderLinkText }
 					onChange={ ( value ) => setAttributes( { noOrderLinkText: value } ) }
 				/>
-				<TextControl
-					label="无订单号链接地址"
-					value={ noOrderLinkUrl }
-					onChange={ ( value ) => setAttributes( { noOrderLinkUrl: value } ) }
-				/>
+				<div style={{ marginBottom: '24px' }}>
+					<label style={{ display: 'block', marginBottom: '8px', fontWeight: 500, fontSize: '13px' }}>无订单号链接页面</label>
+					<SelectControl
+						value={ noOrderLinkUrl }
+						options={ [
+							{ value: '', label: __( '-- 请选择页面 --' ) },
+							...pages,
+						] }
+						onChange={ ( value ) => setAttributes( { noOrderLinkUrl: value } ) }
+					/>
+				</div>
 			</PanelBody>
 			<PanelBody title="成功弹框设置">
 				<TextControl
