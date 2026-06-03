@@ -23,6 +23,21 @@ export default function save({ attributes }) {
 		<div {...blockProps}>
 			<div className="contact-form-container">
 				<form id="contact-form" className="contact-form">
+					<div className="contact-form__row contact-form__row--honeypot">
+						<div className="contact-form__field">
+							<label className="contact-form__label" htmlFor="hp_website_cf">
+								Leave this empty
+							</label>
+							<input
+								type="text"
+								name="website"
+								id="hp_website_cf"
+								className="contact-form__input"
+								tabIndex="-1"
+								autoComplete="off"
+							/>
+						</div>
+					</div>
 					<div className="contact-form__row">
 						<div className="contact-form__field">
 							<label className="contact-form__label">

@@ -22,6 +22,15 @@
 	margin: 0 auto;
 }
 
+.contact-form__row--honeypot {
+	position: absolute !important;
+	left: -9999px !important;
+	opacity: 0 !important;
+	height: 0 !important;
+	overflow: hidden !important;
+	pointer-events: none;
+}
+
 .contact-form__row {
 	display: flex;
 	flex-direction: column;

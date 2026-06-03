@@ -54,6 +54,19 @@ class FeryFit_Contact_Manager {
 	public function handle_form_submission( $request ) {
 		global $wpdb;
 
+		$honeypot = $request->get_param( 'website' );
+		if ( ! empty( $honeypot ) ) {
+			return new WP_Error( 'spam_detected', 'Submission rejected.', array( 'status' => 403 ) );
+		}
+
+		$user_ip = isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '';
+		$rate_limit_key = 'feryfit_contact_rate_limit_' . md5( $user_ip );
+		$current_count = get_transient( $rate_limit_key );
+
+		if ( $current_count !== false && $current_count >= 3 ) {
+			return new WP_Error( 'rate_limit', 'Too many requests. Please try again later.', array( 'status' => 429 ) );
+		}
+
 		$email = sanitize_email( $request->get_param( 'email' ) );
 		$name = sanitize_text_field( $request->get_param( 'name' ) );
 		$message = sanitize_textarea_field( $request->get_param( 'message' ) );
@@ -81,6 +94,11 @@ class FeryFit_Contact_Manager {
 		);
 
 		if ( $result ) {
+			if ( $current_count === false ) {
+				set_transient( $rate_limit_key, 1, 60 );
+			} else {
+				set_transient( $rate_limit_key, $current_count + 1, 60 );
+			}
 			return array( 'success' => true, 'message' => 'Message submitted successfully!' );
 		} else {
 			return new WP_Error( 'db_error', 'Failed to save message', array( 'status' => 500 ) );
