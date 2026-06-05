@@ -48,7 +48,7 @@ class Video_Content_Manager {
      */
     public function register_video_content_post_type() {
         $labels = array(
-            'name'               => __( '视频内容', 'feryfit' ),
+            'name'               => __( 'Video', 'feryfit' ),
             'singular_name'      => __( '视频内容', 'feryfit' ),
             'menu_name'          => __( '视频内容', 'feryfit' ),
             'add_new'            => __( '新增', 'feryfit' ),

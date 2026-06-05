@@ -322,16 +322,25 @@ function feryfit_breadcrumb_get_items() {
 
         // 如果是自定义文章类型（非 page 和 post），检查是否访问过归档页
         if ( $post_type && ! in_array( $post_type, array( 'page', 'post' ), true ) ) {
+            // video_content 和 faq 始终显示归档页链接
+            $always_show_archive = array( 'video_content', 'faq' );
+
             // 检查session中是否记录了访问过该文章类型的归档页
             $visited_archives = isset( $_SESSION['feryfit_visited_archives'] ) ? $_SESSION['feryfit_visited_archives'] : array();
-            
-            // 如果用户之前访问过该类型的归档页，才显示归档页
-            if ( in_array( $post_type, $visited_archives ) ) {
+
+            // 如果是需要始终显示的类型，或者用户之前访问过该类型的归档页，才显示归档页
+            if ( in_array( $post_type, $always_show_archive ) || in_array( $post_type, $visited_archives ) ) {
                 $post_type_obj = get_post_type_object( $post_type );
                 if ( $post_type_obj ) {
-                    $archive_link = get_post_type_archive_link( $post_type );
-                    $archive_title = $post_type_obj->labels->name;
-                    
+                    // 对于 video_content，使用自定义 URL
+                    if ( $post_type === 'video_content' ) {
+                        $archive_link = home_url( '/video/' );
+                        $archive_title = $post_type_obj->labels->name;
+                    } else {
+                        $archive_link = get_post_type_archive_link( $post_type );
+                        $archive_title = $post_type_obj->labels->name;
+                    }
+
                     $items[] = array(
                         'title' => $archive_title,
                         'url'   => $archive_link,
