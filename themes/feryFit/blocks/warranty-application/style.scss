@@ -3,7 +3,6 @@
 	margin: 0 auto;
 	background: #fff;
 	border-radius: 10px;
-	height: 747px;
 	margin-bottom: 110px;
 }
 
@@ -56,7 +55,7 @@
 }
 
 .form-group label {
-	width: 140px;
+	min-width: 200px;
 	color: #000;
 	font-family: Inter;
 	font-size: 16px;
@@ -67,7 +66,7 @@
 
 .form-group .form-content {
 	flex: 1;
-	min-width: 429px;
+	width: 500px;
 }
 
 .form-group input[type="text"],
@@ -101,21 +100,14 @@
 }
 
 .order-help-link {
-	position: absolute;
-	right: -260px;
-	bottom: 10px;
+
 	color: #CD3D1C;
 	font-family: Inter;
 	font-size: 16px;
 	font-style: normal;
 	font-weight: 400;
 	line-height: 26px;
-	text-decoration-line: underline;
-	text-decoration-style: solid;
-	text-decoration-skip-ink: auto;
-	text-decoration-thickness: auto;
-	text-underline-offset: auto;
-	text-underline-position: from-font;
+	width: 500px;
 }
 
 .order-help-link:hover {
@@ -220,15 +212,19 @@
 
 .rating-section {
 	display: flex;
-	align-items: center;
-	gap: 15px;
+	align-items: flex-start;
+	gap: 20px;
 	flex-wrap: wrap;
-	justify-content: space-between;
+}
+
+.rating-section > div:first-child {
+	flex: 1;
+	min-width: 200px;
 }
 
 .rating-section span {
 	color: #000;
-	text-align: center;
+	text-align: left;
 	font-family: Inter;
 	font-size: 16px;
 	font-style: normal;
@@ -250,6 +246,7 @@
 .stars {
 	display: flex;
 	gap: 8px;
+	flex-shrink: 0;
 }
 
 .star {
@@ -623,13 +620,13 @@
 	}
 
 	.form-group label {
-		width: auto;
+		width: 100px;
 		min-width: 100px;
 		padding-top: 0;
 		margin-bottom: 0;
 		font-size: 16px;
 		line-height: 1.5;
-		flex-shrink: 0;
+		flex-shrink: 0 ;
 	}
 
 	.form-group .form-content {

@@ -23,8 +23,8 @@ const DEFAULT_IMAGES = [
 ];
 
 export default function save({ attributes }) {
-	const { 
-		title, 
+	const {
+		title,
 		subtitle,
 		orderNumberLabel,
 		orderNumberPlaceholder,
@@ -60,7 +60,7 @@ export default function save({ attributes }) {
 		productImage9,
 		productImage10
 	} = attributes;
-	
+
 	const images = [
 		productImage1 || DEFAULT_IMAGES[0],
 		productImage2 || DEFAULT_IMAGES[1],
@@ -77,7 +77,7 @@ export default function save({ attributes }) {
 
 	return (
 		<div {...blockProps}>
-			<div className="warranty-application" 
+			<div className="warranty-application"
 				data-modal-title={modalTitle}
 				data-modal-message={modalMessage}
 				data-modal-description={modalDescription}
@@ -106,10 +106,14 @@ export default function save({ attributes }) {
 								placeholder={orderNumberPlaceholder}
 								required
 							/>
-							<a href="#" className="order-help-link">{orderHelpLink}</a>
-							<div className="order-help-tooltip" id="order-help-tooltip">
-								{orderHelpTooltip}
-							</div>
+
+						</div>
+					</div>
+					<div className='form-group'>
+						<label></label>
+						<a href="#" className="order-help-link">{orderHelpLink}</a>
+						<div className="order-help-tooltip" id="order-help-tooltip">
+							{orderHelpTooltip}
 						</div>
 					</div>
 					<div className="form-group">
@@ -138,7 +142,11 @@ export default function save({ attributes }) {
 						<label>{optionalLabel}</label>
 						<div className="form-content">
 							<div className="rating-section">
-								<span>{experienceRatingLabel}</span>
+								<div>{experienceRatingLabel}
+									<div className="rating-labels">
+										<p>{ratingQuestion}</p>
+									</div>
+								</div>
 								<div className="stars">
 									{[1, 2, 3, 4, 5].map((star) => (
 										<span
@@ -152,9 +160,7 @@ export default function save({ attributes }) {
 								</div>
 								<input type="hidden" name="rating" id="rating-value" value="" />
 							</div>
-							<div className="rating-labels">
-								<p>{ratingQuestion}</p>
-							</div>
+
 						</div>
 					</div>
 					<div className="form-group">
