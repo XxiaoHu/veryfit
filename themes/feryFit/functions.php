@@ -38,25 +38,25 @@ function feryfit_scripts() {
     wp_enqueue_style( 'feryfit-floating-chat', get_template_directory_uri() . '/inc/template-functions/floating-chat.css', array(), '1.0.0' );
     wp_enqueue_style( 'feryfit-faq-vote', get_template_directory_uri() . '/assets/css/faq-vote.css', array(), '1.0.0' );
     wp_enqueue_style( 'feryfit-blog-single', get_template_directory_uri() . '/assets/css/blog-single.css', array(), '1.0.0' );
-    
+
     // 加载 breadcrumb 全局样式
     wp_enqueue_style( 'feryfit-breadcrumb', get_template_directory_uri() . '/assets/css/breadcrumb.css', array(), '1.0.0' );
-    
+
     // 为 FAQ 归档页面加载 faq-archive 样式
     if ( is_post_type_archive( 'faq' ) ) {
         wp_enqueue_style( 'feryfit-faq-archive', get_template_directory_uri() . '/assets/css/faq-archive.css', array(), '1.0.0' );
     }
-    
+
     // 为 Video 归档页面加载 video-archive 样式
-    if ( is_post_type_archive( 'video' ) ) {
+    if ( is_post_type_archive( 'video' ) || is_post_type_archive( 'video_content' ) || get_query_var( 'video_content_archive' ) ) {
         wp_enqueue_style( 'feryfit-video-archive', get_template_directory_uri() . '/assets/css/video-archive.css', array(), '1.0.0' );
     }
-    
+
     // 为 404 页面加载 404 样式
     if ( is_404() ) {
         wp_enqueue_style( 'feryfit-404', get_template_directory_uri() . '/assets/css/404.css', array(), '1.0.0' );
     }
-    
+
     wp_enqueue_script( 'jquery' );
     wp_enqueue_script( 'feryfit-header', get_template_directory_uri() . '/assets/js/header-drawer.js', array(), '1.0.0', true );
     wp_enqueue_script( 'feryfit-footer-accordion', get_template_directory_uri() . '/assets/js/footer-accordion.js', array(), '1.0.0', true );
@@ -139,11 +139,11 @@ add_filter('show_admin_bar', '__return_false');
 // Load FAQs Manager
 require_once get_template_directory() . '/includes/class-faqs-manager.php';
 
-// Load Video Manager
-require_once get_template_directory() . '/includes/class-video-manager.php';
+// Load Video Content Manager
+require_once get_template_directory() . '/includes/class-video-content-manager.php';
 
-// Load Video Functions
-require_once get_template_directory() . '/includes/video-functions.php';
+// Load Video Content Functions
+require_once get_template_directory() . '/includes/video-content-functions.php';
 
 // Load FAQs helper functions (frontend and backend)
 require_once get_template_directory() . '/includes/faqs-functions.php';
@@ -322,16 +322,25 @@ function feryfit_breadcrumb_get_items() {
 
         // 如果是自定义文章类型（非 page 和 post），检查是否访问过归档页
         if ( $post_type && ! in_array( $post_type, array( 'page', 'post' ), true ) ) {
+            // video_content 和 faq 始终显示归档页链接
+            $always_show_archive = array( 'video_content', 'faq' );
+
             // 检查session中是否记录了访问过该文章类型的归档页
             $visited_archives = isset( $_SESSION['feryfit_visited_archives'] ) ? $_SESSION['feryfit_visited_archives'] : array();
-            
-            // 如果用户之前访问过该类型的归档页，才显示归档页
-            if ( in_array( $post_type, $visited_archives ) ) {
+
+            // 如果是需要始终显示的类型，或者用户之前访问过该类型的归档页，才显示归档页
+            if ( in_array( $post_type, $always_show_archive ) || in_array( $post_type, $visited_archives ) ) {
                 $post_type_obj = get_post_type_object( $post_type );
                 if ( $post_type_obj ) {
-                    $archive_link = get_post_type_archive_link( $post_type );
-                    $archive_title = $post_type_obj->labels->name;
-                    
+                    // 对于 video_content，使用自定义 URL
+                    if ( $post_type === 'video_content' ) {
+                        $archive_link = home_url( '/video/' );
+                        $archive_title = $post_type_obj->labels->name;
+                    } else {
+                        $archive_link = get_post_type_archive_link( $post_type );
+                        $archive_title = $post_type_obj->labels->name;
+                    }
+
                     $items[] = array(
                         'title' => $archive_title,
                         'url'   => $archive_link,

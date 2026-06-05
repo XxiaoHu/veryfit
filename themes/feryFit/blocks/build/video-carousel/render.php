@@ -17,20 +17,20 @@ $items_per_row      = 4;
 $rows_per_slide     = 2;
 
 // 动态生成视频归档页面链接，支持 Polylang 多语言
-$video_archive_url = get_post_type_archive_link('video');
+$video_archive_url = home_url('/video/');
 if (function_exists('pll_current_language')) {
 	$current_lang = pll_current_language();
 	$default_lang = pll_default_language();
 	if ($current_lang && $current_lang !== $default_lang) {
-		$video_archive_url = home_url('/' . $current_lang . '/archives/video/');
+		$video_archive_url = home_url('/' . $current_lang . '/video/');
 	}
 }
 
 $video_posts = array();
 $max_items = $items_per_row * $rows_per_slide;
 
-if (function_exists('feryfit_get_videos')) {
-	$raw_posts = feryfit_get_videos(array(
+if (function_exists('feryfit_get_video_contents')) {
+	$raw_posts = feryfit_get_video_contents(array(
 		'posts_per_page' => 50,
 	));
 
@@ -66,8 +66,8 @@ if (function_exists('feryfit_get_videos')) {
 			'excerpt'           => get_the_excerpt($post),
 			'thumbnail'         => $thumbnail_url ? $thumbnail_url : '',
 			'duration'          => '',
-			'video_url'         => feryfit_get_video_url($post->ID),
-			'permalink'         => feryfit_get_video_permalink($post->ID),
+			'video_url'         => feryfit_get_video_content_url($post->ID),
+			'permalink'         => feryfit_get_video_content_permalink($post->ID),
 			'post_date'         => get_the_date('Y-m-d H:i:s', $post),
 			'post_modified'     => get_the_modified_date('Y-m-d H:i:s', $post),
 		);

@@ -1402,14 +1402,14 @@ div {
 }
 
 /* Video Single Page Styles */
-.single-video .site-main,
+.single-video, .single-video_content .site-main,
 .single-faq .site-main,
 .single-blog .site-main {
     background: #fff;
     padding: 40px 0;
 }
 
-.single-video .post-type-badge,
+.single-video, .single-video_content .post-type-badge,
 .single-faq .post-type-badge,
 .single-blog .post-type-badge {
     color: #CD3D1C;
@@ -1422,7 +1422,7 @@ div {
     /* 262.5% */
 }
 
-.single-video .video-single-article,
+.single-video, .single-video_content .video-single-article,
 .single-faq .video-single-article,
 .single-blog .video-single-article {
     max-width: 1000px;
@@ -1434,7 +1434,7 @@ div {
 }
 
 
-.single-video .entry-header,
+.single-video, .single-video_content .entry-header,
 .single-faq .entry-header,
 .single-blog .entry-header {
     text-align: center;
@@ -1443,7 +1443,7 @@ div {
     border-bottom: 1px solid #B8B8B8;
 }
 
-.single-video .entry-title,
+.single-video, .single-video_content .entry-title,
 .single-faq .entry-title,
 .single-blog .entry-title {
     color: #000;
@@ -1456,14 +1456,14 @@ div {
     /* 131.25% */
 }
 
-.single-video .entry-meta,
+.single-video, .single-video_content .entry-meta,
 .single-faq .entry-meta,
 .single-blog .entry-meta {
     font-size: 14px;
     color: #999;
 }
 
-.single-video .entry-content,
+.single-video, .single-video_content .entry-content,
 .single-faq .entry-content,
 .single-blog .entry-content {
     font-size: 16px;
@@ -1471,7 +1471,7 @@ div {
     color: #333;
 }
 
-.single-video .entry-content p,
+.single-video, .single-video_content .entry-content p,
 .single-faq .entry-content p,
 .single-blog .entry-content p {
     color: #000;
@@ -1483,7 +1483,7 @@ div {
     /* 150% */
 }
 
-.single-video .entry-content H2,
+.single-video, .single-video_content .entry-content H2,
 .single-faq .entry-content H2,
 .single-blog .entry-content H2 {
     color: #000;
@@ -1495,7 +1495,7 @@ div {
     /* 150% */
 }
 
-.single-video .entry-content H3,
+.single-video, .single-video_content .entry-content H3,
 .single-faq .entry-content H3,
 .single-blog .entry-content H3 {
     color: #000;
@@ -1507,7 +1507,7 @@ div {
     /* 150% */
 }
 
-.single-video .entry-content H4,
+.single-video, .single-video_content .entry-content H4,
 .single-faq .entry-content H4,
 .single-blog .entry-content H4 {
     color: #000;
@@ -1520,7 +1520,7 @@ div {
 }
 
 .single-faq .wp-block-image,
-.single-video .wp-block-image,
+.single-video, .single-video_content .wp-block-image,
 .single-blog .wp-block-image {
     margin: 40px 0;
 }
@@ -1584,7 +1584,7 @@ div {
 }
 
 /* YouTube iframe 居中样式 */
-.single-video .entry-content iframe {
+.single-video, .single-video_content .entry-content iframe {
     display: block;
     margin: 60px auto;
     width: 1000px;
@@ -1595,20 +1595,20 @@ div {
 
 /* 移动端响应式 */
 @media screen and (max-width: 1024px) {
-    .single-video .entry-content iframe {
+    .single-video, .single-video_content .entry-content iframe {
         width: 100%;
         height: auto;
         aspect-ratio: 16/9;
     }
 
-    .single-video .video-single-article,
+    .single-video, .single-video_content .video-single-article,
     .single-faq .video-single-article,
     .single-blog .video-single-article {
         padding: 24px;
         padding-top: 30px;
     }
 
-    .single-video .site-main,
+    .single-video, .single-video_content .site-main,
     .single-faq .site-main,
     .single-blog .site-main {
         padding: 10px 0;
@@ -1618,7 +1618,7 @@ div {
 }
 
 /* 响应式视频容器 */
-.single-video .entry-content .wp-block-embed-youtube {
+.single-video, .single-video_content .entry-content .wp-block-embed-youtube {
     position: relative;
     width: 100%;
     padding-bottom: 56.25%;
@@ -1628,7 +1628,7 @@ div {
     margin: 30px 0;
 }
 
-.single-video .entry-content .wp-block-embed-youtube iframe {
+.single-video, .single-video_content .entry-content .wp-block-embed-youtube iframe {
     position: absolute;
     top: 0;
     left: 0;

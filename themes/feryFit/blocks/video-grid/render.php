@@ -30,8 +30,8 @@ $current_page = max(1, intval(get_query_var('paged', 1)));
 
 $video_posts = array();
 
-if (function_exists('feryfit_get_videos')) {
-	$raw_posts = feryfit_get_videos(array(
+if (function_exists('feryfit_get_video_contents')) {
+	$raw_posts = feryfit_get_video_contents(array(
 		'posts_per_page' => -1,
 	));
 
@@ -67,8 +67,8 @@ if (function_exists('feryfit_get_videos')) {
 			'excerpt'           => get_the_excerpt($post),
 			'thumbnail'         => $thumbnail_url ? $thumbnail_url : '',
 			'duration'          => '',
-			'video_url'         => feryfit_get_video_url($post->ID),
-			'permalink'         => feryfit_get_video_permalink($post->ID),
+			'video_url'         => feryfit_get_video_content_url($post->ID),
+			'permalink'         => feryfit_get_video_content_permalink($post->ID),
 			'post_date'         => get_the_date('Y-m-d H:i:s', $post),
 			'post_modified'     => get_the_modified_date('Y-m-d H:i:s', $post),
 		);

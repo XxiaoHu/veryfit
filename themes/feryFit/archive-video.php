@@ -23,8 +23,9 @@ get_header(); ?>
 
         $video_posts = array();
 
-        if (function_exists('feryfit_get_videos')) {
-            $raw_posts = feryfit_get_videos(array(
+        // 使用 video_content 数据
+        if (function_exists('feryfit_get_video_contents')) {
+            $raw_posts = feryfit_get_video_contents(array(
                 'posts_per_page' => -1,
             ));
 
@@ -60,8 +61,8 @@ get_header(); ?>
                     'excerpt'           => get_the_excerpt($post),
                     'thumbnail'         => $thumbnail_url ? $thumbnail_url : '',
                     'duration'          => '',
-                    'video_url'         => feryfit_get_video_url($post->ID),
-                    'permalink'         => feryfit_get_video_permalink($post->ID),
+                    'video_url'         => feryfit_get_video_content_url($post->ID),
+                    'permalink'         => feryfit_get_video_content_permalink($post->ID),
                     'post_date'         => get_the_date('Y-m-d H:i:s', $post),
                     'post_modified'     => get_the_modified_date('Y-m-d H:i:s', $post),
                 );
@@ -85,9 +86,12 @@ get_header(); ?>
         $total_count = count($video_posts);
         $total_pages = intval(max(1, ceil($total_count / $posts_per_page)));
 
+        // 始终使用 /video/ 归档链接
+        $archive_link = home_url('/video/');
+
         // Redirect if current page exceeds total pages
         if ($current_page > $total_pages) {
-            wp_redirect(get_post_type_archive_link('video') . ($total_pages > 1 ? '?paged=' . $total_pages : ''));
+            wp_redirect($archive_link . ($total_pages > 1 ? 'page/' . $total_pages . '/' : ''));
             exit;
         }
 
@@ -151,7 +155,7 @@ get_header(); ?>
                             </svg>
                         </span>
                     <?php else : ?>
-                        <a href="<?php echo esc_url(add_query_arg('paged', $current_page - 1, get_post_type_archive_link('video'))); ?>"
+                        <a href="<?php echo esc_url($archive_link . 'page/' . ($current_page - 1) . '/'); ?>"
                             class="video-archive__pagination-nav video-archive__pagination-nav--prev">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
                                 <g clip-path="url(#clip0_prev_active)">
@@ -178,7 +182,7 @@ get_header(); ?>
 
                         if ($start_page > 1) {
                         ?>
-                            <a href="<?php echo esc_url(get_post_type_archive_link('video')); ?>"
+                            <a href="<?php echo esc_url($archive_link); ?>"
                                 class="video-archive__pagination-page">1</a>
                             <?php
                             if ($start_page > 2) {
@@ -188,7 +192,7 @@ get_header(); ?>
 
                         for ($i = $start_page; $i <= $end_page; $i++) {
                             ?>
-                            <a href="<?php echo esc_url($i === 1 ? get_post_type_archive_link('video') : add_query_arg('paged', $i, get_post_type_archive_link('video'))); ?>"
+                            <a href="<?php echo esc_url($i === 1 ? $archive_link : add_query_arg('paged', $i, $archive_link)); ?>"
                                 class="video-archive__pagination-page <?php echo $current_page === $i ? 'video-archive__pagination-page--active' : ''; ?>">
                                 <?php echo esc_html($i); ?>
                             </a>
@@ -200,7 +204,7 @@ get_header(); ?>
                                 echo '<span class="video-archive__pagination-dots">...</span>';
                             }
                         ?>
-                            <a href="<?php echo esc_url(add_query_arg('paged', $total_pages, get_post_type_archive_link('video'))); ?>"
+                            <a href="<?php echo esc_url(add_query_arg('paged', $total_pages, $archive_link)); ?>"
                                 class="video-archive__pagination-page"><?php echo esc_html($total_pages); ?></a>
                         <?php
                         }
@@ -227,7 +231,7 @@ get_header(); ?>
                             </svg>
                         </span>
                     <?php else : ?>
-                        <a href="<?php echo esc_url(add_query_arg('paged', $current_page + 1, get_post_type_archive_link('video'))); ?>"
+                        <a href="<?php echo esc_url(add_query_arg('paged', $current_page + 1, $archive_link)); ?>"
                             class="video-archive__pagination-nav video-archive__pagination-nav--next">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
                                 <g clip-path="url(#clip0_next_active)">
