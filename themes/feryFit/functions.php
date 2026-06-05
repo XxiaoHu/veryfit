@@ -65,7 +65,7 @@ add_action( 'wp_enqueue_scripts', 'feryfit_scripts' );
 
 function feryfit_search_filter( $query ) {
     if ( $query->is_search() && ! is_admin() && $query->is_main_query() ) {
-        $query->set( 'post_type', array( 'post', 'faq', 'blog', 'video' ) );
+        $query->set( 'post_type', array( 'post', 'faq', 'blog', 'video_content' ) );
         $query->set( 'posts_per_page', 10 );
     }
 }

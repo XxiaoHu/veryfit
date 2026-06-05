@@ -51,17 +51,6 @@ $search_query = get_search_query();
 			</div>
 		</header><!-- .page-header -->
 
-		<!-- <script type="text/javascript">
-			// 输出搜索结果数据到控制台
-			document.addEventListener('DOMContentLoaded', function() {
-				console.log('=== 搜索结果数据 ===');
-				console.log('搜索关键词:', <?php echo json_encode( $search_query ); ?>);
-				console.log('搜索结果数量:', <?php global $wp_query; echo isset($wp_query->found_posts) ? (int) $wp_query->found_posts : 0; ?>);
-				console.log('当前页码:', <?php echo (int) ( get_query_var('paged') ? get_query_var('paged') : 1 ); ?>);
-				console.log('是否有搜索结果:', <?php echo have_posts() ? 'true' : 'false'; ?>);
-			});
-		</script> -->
-
 		<div class="search-results-container">
 			<?php if ( have_posts() ) : ?>
 
@@ -86,7 +75,7 @@ $search_query = get_search_query();
 							<a href="<?php echo esc_url( get_permalink() ); ?>" class="search-result-link">
 								<h3 class="search-result-title">
 									<?php echo $index . '. '; ?>
-									<?php if ($post_type === 'video') : ?>
+									<?php if ($post_type === 'video_content') : ?>
 										<span class="post-type-badge">[Video]</span>
 									<?php endif; ?>
 									<?php echo $title; ?>
