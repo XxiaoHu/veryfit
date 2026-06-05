@@ -40,6 +40,7 @@ jQuery(document).ready(function($) {
         html += '<th>邮箱</th>';
         html += '<th>姓名</th>';
         html += '<th>国家</th>';
+        html += '<th>语言</th>';
         html += '<th>评分</th>';
         html += '<th>接收更新</th>';
         html += '<th>创建时间</th>';
@@ -53,6 +54,7 @@ jQuery(document).ready(function($) {
             html += '<td><a href="mailto:' + escapeHtml(item.email) + '">' + escapeHtml(item.email) + '</a></td>';
             html += '<td>' + escapeHtml(item.name) + '</td>';
             html += '<td>' + escapeHtml(item.country) + '</td>';
+            html += '<td>' + escapeHtml(item.language) + '</td>';
             html += '<td><span class="star-rating">' + getStarRating(item.rating) + '</span></td>';
             html += '<td><span class="' + (item.receive_updates ? 'checkbox-yes' : 'checkbox-no') + '">' + (item.receive_updates ? '是' : '否') + '</span></td>';
             html += '<td>' + formatDate(item.created_at) + '</td>';

@@ -25,6 +25,7 @@ class FeryFit_Warranty_Manager {
 			email VARCHAR(255) NOT NULL,
 			name VARCHAR(255) DEFAULT '',
 			country VARCHAR(100) DEFAULT '',
+			language VARCHAR(10) DEFAULT '',
 			rating TINYINT(1) DEFAULT 0,
 			receive_updates TINYINT(1) DEFAULT 0,
 			future_tests TINYINT(1) DEFAULT 0,
@@ -97,6 +98,7 @@ class FeryFit_Warranty_Manager {
 		$email = sanitize_email( $request->get_param( 'email' ) );
 		$name = sanitize_text_field( $request->get_param( 'name' ) );
 		$country = sanitize_text_field( $request->get_param( 'country' ) );
+		$language = sanitize_text_field( $request->get_param( 'language' ) );
 		$rating = intval( $request->get_param( 'rating' ) );
 		$receive_updates = $request->get_param( 'receive_updates' ) ? 1 : 0;
 		$future_tests = $request->get_param( 'future_tests' ) ? 1 : 0;
@@ -116,11 +118,13 @@ class FeryFit_Warranty_Manager {
 				'email' => $email,
 				'name' => $name,
 				'country' => $country,
+				'language' => $language,
 				'rating' => $rating,
 				'receive_updates' => $receive_updates,
 				'future_tests' => $future_tests,
 			),
 			array(
+				'%s',
 				'%s',
 				'%s',
 				'%s',
@@ -155,7 +159,8 @@ class FeryFit_Warranty_Manager {
 		if ( ! empty( $search ) ) {
 			$search = '%' . $wpdb->esc_like( $search ) . '%';
 			$where_clause = $wpdb->prepare(
-				" WHERE order_number LIKE %s OR email LIKE %s OR name LIKE %s OR country LIKE %s",
+				" WHERE order_number LIKE %s OR email LIKE %s OR name LIKE %s OR country LIKE %s OR language LIKE %s",
+				$search,
 				$search,
 				$search,
 				$search,
@@ -364,6 +369,7 @@ function feryfit_create_warranty_table() {
 		email VARCHAR(255) NOT NULL,
 		name VARCHAR(255) DEFAULT '',
 		country VARCHAR(100) DEFAULT '',
+		language VARCHAR(10) DEFAULT '',
 		rating TINYINT(1) DEFAULT 0,
 		receive_updates TINYINT(1) DEFAULT 0,
 		future_tests TINYINT(1) DEFAULT 0,

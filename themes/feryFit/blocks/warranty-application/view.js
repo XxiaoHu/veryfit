@@ -78,6 +78,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		lastOrderNumber = formData.get('order_number') || '';
 
+		// 获取当前页面语言
+		const currentLanguage = document.documentElement.lang || 'en';
+		formData.append('language', currentLanguage);
+
 		const submitButton = form.querySelector('.submit-btn');
 
 		if (submitButton.classList.contains('loading')) {
