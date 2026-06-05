@@ -38,25 +38,25 @@ function feryfit_scripts() {
     wp_enqueue_style( 'feryfit-floating-chat', get_template_directory_uri() . '/inc/template-functions/floating-chat.css', array(), '1.0.0' );
     wp_enqueue_style( 'feryfit-faq-vote', get_template_directory_uri() . '/assets/css/faq-vote.css', array(), '1.0.0' );
     wp_enqueue_style( 'feryfit-blog-single', get_template_directory_uri() . '/assets/css/blog-single.css', array(), '1.0.0' );
-    
+
     // 加载 breadcrumb 全局样式
     wp_enqueue_style( 'feryfit-breadcrumb', get_template_directory_uri() . '/assets/css/breadcrumb.css', array(), '1.0.0' );
-    
+
     // 为 FAQ 归档页面加载 faq-archive 样式
     if ( is_post_type_archive( 'faq' ) ) {
         wp_enqueue_style( 'feryfit-faq-archive', get_template_directory_uri() . '/assets/css/faq-archive.css', array(), '1.0.0' );
     }
-    
+
     // 为 Video 归档页面加载 video-archive 样式
-    if ( is_post_type_archive( 'video' ) ) {
+    if ( is_post_type_archive( 'video' ) || is_post_type_archive( 'video_content' ) || get_query_var( 'video_content_archive' ) ) {
         wp_enqueue_style( 'feryfit-video-archive', get_template_directory_uri() . '/assets/css/video-archive.css', array(), '1.0.0' );
     }
-    
+
     // 为 404 页面加载 404 样式
     if ( is_404() ) {
         wp_enqueue_style( 'feryfit-404', get_template_directory_uri() . '/assets/css/404.css', array(), '1.0.0' );
     }
-    
+
     wp_enqueue_script( 'jquery' );
     wp_enqueue_script( 'feryfit-header', get_template_directory_uri() . '/assets/js/header-drawer.js', array(), '1.0.0', true );
     wp_enqueue_script( 'feryfit-footer-accordion', get_template_directory_uri() . '/assets/js/footer-accordion.js', array(), '1.0.0', true );
@@ -139,11 +139,11 @@ add_filter('show_admin_bar', '__return_false');
 // Load FAQs Manager
 require_once get_template_directory() . '/includes/class-faqs-manager.php';
 
-// Load Video Manager
-require_once get_template_directory() . '/includes/class-video-manager.php';
+// Load Video Content Manager
+require_once get_template_directory() . '/includes/class-video-content-manager.php';
 
-// Load Video Functions
-require_once get_template_directory() . '/includes/video-functions.php';
+// Load Video Content Functions
+require_once get_template_directory() . '/includes/video-content-functions.php';
 
 // Load FAQs helper functions (frontend and backend)
 require_once get_template_directory() . '/includes/faqs-functions.php';
