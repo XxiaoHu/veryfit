@@ -15,7 +15,7 @@ get_header(); ?>
 	while (have_posts()) :
 		the_post();
 	?>
-		<div class="post-type-badge">Sleep & Health</div>
+		<div class="post-type-badge"><?php echo esc_html( pll__( 'Sleep & Health', 'feryfit' ) ); ?></div>
 		<article id="post-<?php the_ID(); ?>" <?php post_class('video-single-article'); ?>>
 			<header class="entry-header">
 				<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
