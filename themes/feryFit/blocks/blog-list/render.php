@@ -8,17 +8,19 @@
 $desktop_margin = isset( $attributes['desktopTopMargin'] ) ? $attributes['desktopTopMargin'] : 78;
 $mobile_margin = isset( $attributes['mobileTopMargin'] ) ? $attributes['mobileTopMargin'] : 40;
 $posts_per_category = isset( $attributes['postsPerCategory'] ) ? $attributes['postsPerCategory'] : 6;
+$category1_title = isset( $attributes['category1Title'] ) ? $attributes['category1Title'] : 'Setup & Pairing';
+$category2_title = isset( $attributes['category2Title'] ) ? $attributes['category2Title'] : 'Daily Use';
 
-// Fixed categories
+// Fixed categories with dynamic titles
 $categories = array(
 	array(
-		'name' => 'Setup & Pairing',
+		'name' => $category1_title,
 		'slug' => 'setup-pairing',
 		'tag_class' => 'blog-list__category-tag--red',
 		'icon_src' => get_template_directory_uri() . '/assets/images/peidui2.png',
 	),
 	array(
-		'name' => 'Daily Use',
+		'name' => $category2_title,
 		'slug' => 'daily-use',
 		'tag_class' => 'blog-list__category-tag--black',
 		'icon_src' => get_template_directory_uri() . '/assets/images/log1.png',

@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, RangeControl } from '@wordpress/components';
+import { PanelBody, RangeControl, TextControl } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 
 import './editor.scss';
@@ -34,8 +34,24 @@ const limitTitle = (title, length = 30) => {
 };
 
 export default function Edit({ attributes, setAttributes }) {
-	const { desktopTopMargin, mobileTopMargin, postsPerCategory } = attributes;
+	const { desktopTopMargin, mobileTopMargin, postsPerCategory, category1Title, category2Title } = attributes;
 	const blockProps = useBlockProps();
+
+	// Fixed categories with dynamic titles
+	const CATEGORIES = [
+		{
+			name: category1Title || 'Setup & Pairing',
+			slug: 'setup-pairing',
+			tagClass: 'blog-list__category-tag--red',
+			iconSrc: '/wp-content/themes/feryFit/assets/images/peidui2.png',
+		},
+		{
+			name: category2Title || 'Daily Use',
+			slug: 'daily-use',
+			tagClass: 'blog-list__category-tag--black',
+			iconSrc: '/wp-content/themes/feryFit/assets/images/log1.png',
+		},
+	];
 
 	// Get blog posts for each category using correct REST API params
 	const postsByCategory = useSelect((select) => {
@@ -75,6 +91,18 @@ export default function Edit({ attributes, setAttributes }) {
 		<div {...blockProps} style={{ marginTop: desktopTopMargin + 'px' }}>
 			<InspectorControls>
 				<PanelBody title={__('博客列表设置', 'feryfit')}>
+					<TextControl
+						label={__('第一个分类标题', 'feryfit')}
+						value={category1Title}
+						onChange={(value) => setAttributes({ category1Title: value })}
+						placeholder="Setup & Pairing"
+					/>
+					<TextControl
+						label={__('第二个分类标题', 'feryfit')}
+						value={category2Title}
+						onChange={(value) => setAttributes({ category2Title: value })}
+						placeholder="Daily Use"
+					/>
 					<RangeControl
 						label={__('PC端上边距 (px)', 'feryfit')}
 						value={desktopTopMargin}
