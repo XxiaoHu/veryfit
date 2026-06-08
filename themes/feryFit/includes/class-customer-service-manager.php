@@ -58,7 +58,7 @@ class FeryFit_Customer_Service_Manager {
 			'manage_options',
 			'feryfit-customer-service',
 			array( $this, 'render_admin_page' ),
-			'dashicons-admin-users',
+			'dashicons-megaphone',
 			8
 		);
 	}
