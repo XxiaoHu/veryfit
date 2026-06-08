@@ -10,7 +10,7 @@ import { useSelect } from '@wordpress/data';
 import './editor.scss';
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { sectionTitle } = attributes;
+	const { sectionTitle, learnMoreText } = attributes;
 
 	const itemsPerRow = 4;
 	const rowsPerSlide = 2;
@@ -82,6 +82,12 @@ export default function Edit( { attributes, setAttributes } ) {
 						value={ sectionTitle }
 						onChange={ ( value ) => setAttributes( { sectionTitle: value } ) }
 					/>
+					<TextControl
+						label={ __( '查看更多按钮文字', 'feryfit' ) }
+						value={ learnMoreText }
+						onChange={ ( value ) => setAttributes( { learnMoreText: value } ) }
+						placeholder="Learn More"
+					/>
 				</PanelBody>
 			</InspectorControls>
 
@@ -89,7 +95,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				<div className="video-carousel-header">
 					<h2 className="video-carousel-title">{ sectionTitle }</h2>
 					<a href={videoArchiveUrl} className="video-carousel-learn-more" onClick={(e) => e.preventDefault()}>
-						{ __( 'Learn More', 'feryfit' ) }
+						{ learnMoreText || 'Learn More' }
 						<span className="arrow">&gt;</span>
 					</a>
 				</div>

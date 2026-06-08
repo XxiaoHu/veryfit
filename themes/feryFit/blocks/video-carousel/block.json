@@ -20,6 +20,10 @@
 		"sectionTitle": {
 			"type": "string",
 			"default": "Hot Video Section"
+		},
+		"learnMoreText": {
+			"type": "string",
+			"default": "Learn More"
 		}
 	}
 }
