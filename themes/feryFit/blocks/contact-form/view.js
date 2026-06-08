@@ -2,6 +2,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	const form = document.getElementById('contact-form');
 	if (!form) return;
 
+	// 自动填充语言字段
+	const languageInput = document.getElementById('contact-form-language');
+	if (languageInput) {
+		const currentLanguage = document.documentElement.lang || 'en-US';
+		languageInput.value = currentLanguage;
+		console.log('Contact form language set to:', currentLanguage);
+	}
+
 	const submitButton = form.querySelector('button[type="submit"]');
 	let originalButtonText = '';
 
@@ -35,6 +43,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			if (data.success) {
 				form.reset();
+
+				// 重新设置语言字段
+				if (languageInput) {
+					const currentLanguage = document.documentElement.lang || 'en-US';
+					languageInput.value = currentLanguage;
+				}
 
 				if (submitButton) {
 					submitButton.style.display = 'none';
