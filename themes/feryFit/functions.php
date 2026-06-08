@@ -84,6 +84,8 @@ function feryfit_register_polylang_strings() {
         pll_register_string( 'Chat on WhatsApp', 'Chat on WhatsApp', 'feryfit' );
         pll_register_string( 'Send an Email', 'Send an Email', 'feryfit' );
         pll_register_string( 'Message us on Facebook', 'Message us on Facebook', 'feryfit' );
+        pll_register_string( 'Video', 'Video', 'feryfit' );
+        pll_register_string( 'FAQ', 'FAQ', 'feryfit' );
     }
 }
 add_action( 'init', 'feryfit_register_polylang_strings' );
@@ -296,6 +298,33 @@ function feryfit_customize_register( $wp_customize ) {
 add_action( 'customize_register', 'feryfit_customize_register' );
 
 /**
+ * 获取支持多语言的归档页面链接
+ *
+ * @param string $post_type 文章类型
+ * @return string 归档页面URL
+ */
+function feryfit_get_archive_link( $post_type ) {
+    // 对于 video_content，使用自定义 /video/ URL
+    if ( $post_type === 'video_content' ) {
+        $archive_link = home_url( '/video/' );
+
+        // 支持 Polylang 多语言
+        if ( function_exists( 'pll_current_language' ) ) {
+            $current_lang = pll_current_language();
+            $default_lang = pll_default_language();
+            if ( $current_lang && $current_lang !== $default_lang ) {
+                $archive_link = home_url( '/' . $current_lang . '/video/' );
+            }
+        }
+
+        return $archive_link;
+    }
+
+    // 其他文章类型使用默认的归档链接
+    return get_post_type_archive_link( $post_type );
+}
+
+/**
  * 获取面包屑导航数据
  *
  * @return array 面包屑项目数组
@@ -336,12 +365,15 @@ function feryfit_breadcrumb_get_items() {
             if ( in_array( $post_type, $always_show_archive ) || in_array( $post_type, $visited_archives ) ) {
                 $post_type_obj = get_post_type_object( $post_type );
                 if ( $post_type_obj ) {
-                    // 对于 video_content，使用自定义 URL
+                    // 获取归档链接（支持多语言）
+                    $archive_link = feryfit_get_archive_link( $post_type );
+
+                    // 获取归档标题（支持翻译）
                     if ( $post_type === 'video_content' ) {
-                        $archive_link = home_url( '/video/' );
-                        $archive_title = $post_type_obj->labels->name;
+                        $archive_title = pll__( 'Video', 'feryfit' );
+                    } elseif ( $post_type === 'faq' ) {
+                        $archive_title = pll__( 'FAQ', 'feryfit' );
                     } else {
-                        $archive_link = get_post_type_archive_link( $post_type );
                         $archive_title = $post_type_obj->labels->name;
                     }
 
@@ -403,9 +435,22 @@ function feryfit_breadcrumb_get_items() {
                 'is_current' => true,
             );
         } elseif ( is_post_type_archive() ) {
+            $post_type = get_query_var( 'post_type' );
+            $archive_title = post_type_archive_title( '', false );
+
+            // 为特定文章类型使用翻译
+            if ( $post_type === 'video_content' || $post_type === 'video' ) {
+                $archive_title = pll__( 'Video', 'feryfit' );
+            } elseif ( $post_type === 'faq' ) {
+                $archive_title = pll__( 'FAQ', 'feryfit' );
+            }
+
+            // 获取归档链接（支持多语言）
+            $archive_link = feryfit_get_archive_link( $post_type );
+
             $items[] = array(
-                'title' => post_type_archive_title( '', false ),
-                'url'   => get_post_type_archive_link( get_query_var( 'post_type' ) ),
+                'title' => $archive_title,
+                'url'   => $archive_link,
                 'is_current' => true,
             );
         } elseif ( is_date() ) {

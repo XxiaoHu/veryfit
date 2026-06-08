@@ -91,6 +91,24 @@ class Video_Content_Manager {
             'index.php?video_content_archive=1&paged=$matches[1]',
             'top'
         );
+
+        // Polylang 多语言支持 - 添加带语言前缀的重写规则
+        if ( function_exists( 'pll_languages_list' ) ) {
+            $languages = pll_languages_list();
+            foreach ( $languages as $lang ) {
+                // 为每种语言添加归档页面规则
+                add_rewrite_rule(
+                    '^' . $lang . '/video/?$',
+                    'index.php?video_content_archive=1&lang=' . $lang,
+                    'top'
+                );
+                add_rewrite_rule(
+                    '^' . $lang . '/video/page/?([0-9]{1,})/?$',
+                    'index.php?video_content_archive=1&lang=' . $lang . '&paged=$matches[1]',
+                    'top'
+                );
+            }
+        }
     }
 
     /**
@@ -147,6 +165,15 @@ class Video_Content_Manager {
             $wp_query->is_post_type_archive = true;
             $wp_query->is_home = false;
             $wp_query->is_singular = false;
+
+            // 处理 Polylang 语言参数
+            $lang = get_query_var( 'lang' );
+            if ( $lang && function_exists( 'pll_current_language' ) ) {
+                // 设置当前语言上下文
+                if ( function_exists( 'PLL' ) ) {
+                    PLL()->curlang = PLL()->model->get_language( $lang );
+                }
+            }
         }
 
         // 处理单页 - 检查查询参数
@@ -204,11 +231,11 @@ class Video_Content_Manager {
      */
     public function maybe_flush_rewrite_rules() {
         $version = get_option( 'feryfit_video_content_rewrite_version' );
-        if ( $version !== '5' ) {
+        if ( $version !== '6' ) {
             $this->register_video_content_post_type();
             $this->add_video_content_rewrite_rules();
             flush_rewrite_rules();
-            update_option( 'feryfit_video_content_rewrite_version', '5' );
+            update_option( 'feryfit_video_content_rewrite_version', '6' );
         }
     }
 
