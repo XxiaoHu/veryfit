@@ -21,6 +21,12 @@ class FeryFit_Customer_Service_Manager {
 			'default' => '',
 		) );
 
+		register_setting( 'feryfit_customer_service_group', 'feryfit_phone', array(
+			'type' => 'string',
+			'sanitize_callback' => 'sanitize_text_field',
+			'default' => '',
+		) );
+
 		register_setting( 'feryfit_customer_service_group', 'feryfit_facebook', array(
 			'type' => 'string',
 			'sanitize_callback' => 'esc_url_raw',
@@ -40,6 +46,7 @@ class FeryFit_Customer_Service_Manager {
 		return array(
 			'whatsapp' => get_option( 'feryfit_whatsapp', '' ),
 			'email'    => get_option( 'feryfit_email', '' ),
+			'phone'    => get_option( 'feryfit_phone', '' ),
 			'facebook' => get_option( 'feryfit_facebook', '' ),
 		);
 	}
@@ -103,6 +110,23 @@ class FeryFit_Customer_Service_Manager {
 								placeholder="example@domain.com"
 							/>
 							<p class="description">请输入客服邮箱地址。</p>
+						</td>
+					</tr>
+
+					<tr>
+						<th scope="row">
+							<label for="feryfit_phone">Phone</label>
+						</th>
+						<td>
+							<input
+								type="text"
+								id="feryfit_phone"
+								name="feryfit_phone"
+								value="<?php echo esc_attr( get_option( 'feryfit_phone', '' ) ); ?>"
+								class="regular-text"
+								placeholder="+1234567890"
+							/>
+							<p class="description">请输入客服电话号码，格式：+1234567890</p>
 						</td>
 					</tr>
 

@@ -86,6 +86,18 @@ function feryfit_register_polylang_strings() {
         pll_register_string( 'Message us on Facebook', 'Message us on Facebook', 'feryfit' );
         pll_register_string( 'Video', 'Video', 'feryfit' );
         pll_register_string( 'FAQ', 'FAQ', 'feryfit' );
+
+        // Footer 文本字符串
+        pll_register_string( 'Smart Tech Meets Everyday Life.', 'Smart Tech Meets Everyday Life.', 'feryfit' );
+        pll_register_string( 'Product', 'Product', 'feryfit' );
+        pll_register_string( 'About & Support', 'About & Support', 'feryfit' );
+        pll_register_string( 'Policy', 'Policy', 'feryfit' );
+        pll_register_string( 'Contact us', 'Contact us', 'feryfit' );
+        pll_register_string( 'Customer service:', 'Customer service:', 'feryfit' );
+        pll_register_string( 'Whatsapp', 'Whatsapp', 'feryfit' );
+        pll_register_string( 'Phone Support', 'Phone Support', 'feryfit' );
+        pll_register_string( 'Follow us', 'Follow us', 'feryfit' );
+        pll_register_string( 'VeryfitVip.Store', 'VeryfitVip.Store', 'feryfit' );
     }
 }
 add_action( 'init', 'feryfit_register_polylang_strings' );
@@ -168,134 +180,6 @@ function custom_remove_admin_menus() {
     remove_menu_page( 'edit.php' );
 }
 add_action( 'admin_menu', 'custom_remove_admin_menus', 999 );
-
-// 添加页脚主题自定义选项
-function feryfit_customize_register( $wp_customize ) {
-    // 页脚设置面板
-    $wp_customize->add_section( 'feryfit_footer_settings', array(
-        'title'    => __( 'Footer Settings', 'feryfit' ),
-        'priority' => 100,
-    ) );
-
-    // 页脚标签文字
-    $wp_customize->add_setting( 'footer_tagline', array(
-        'default'           => 'Smart Tech Meets Everyday Life.',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'footer_tagline', array(
-        'label'    => __( 'Footer Tagline', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'text',
-    ) );
-
-    // 版权信息
-    $wp_customize->add_setting( 'footer_copyright', array(
-        'default'           => '&copy; ' . date( 'Y' ) . ' VeryfitVip.Store.',
-        'sanitize_callback' => 'wp_kses_post',
-    ) );
-    $wp_customize->add_control( 'footer_copyright', array(
-        'label'    => __( 'Copyright Text', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'text',
-    ) );
-
-    // 页脚菜单标题 - Product
-    $wp_customize->add_setting( 'footer_title_product', array(
-        'default'           => 'Product',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'footer_title_product', array(
-        'label'    => __( 'Product Section Title', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'text',
-    ) );
-
-    // 页脚菜单标题 - About & Support
-    $wp_customize->add_setting( 'footer_title_about', array(
-        'default'           => 'About & Support',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'footer_title_about', array(
-        'label'    => __( 'About & Support Section Title', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'text',
-    ) );
-
-    // 页脚菜单标题 - Policy
-    $wp_customize->add_setting( 'footer_title_policy', array(
-        'default'           => 'Policy',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'footer_title_policy', array(
-        'label'    => __( 'Policy Section Title', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'text',
-    ) );
-
-    // 页脚菜单标题 - Contact us
-    $wp_customize->add_setting( 'footer_title_contact', array(
-        'default'           => 'Contact us',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'footer_title_contact', array(
-        'label'    => __( 'Contact Section Title', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'text',
-    ) );
-
-    // 联系信息链接配置
-    // 项目1 - Customer service
-    $wp_customize->add_setting( 'footer_contact_1_url', array(
-        'default'           => 'mailto:service@runstar.com',
-        'sanitize_callback' => 'esc_url_raw',
-    ) );
-    $wp_customize->add_control( 'footer_contact_1_url', array(
-        'label'    => __( 'Customer Service Link', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'url',
-        'description' => __( 'URL for "Customer service" link. Use mailto: for email.', 'feryfit' ),
-    ) );
-
-    // 项目2 - Whatsapp
-    $wp_customize->add_setting( 'footer_contact_2_url', array(
-        'default'           => '',
-        'sanitize_callback' => 'esc_url_raw',
-    ) );
-    $wp_customize->add_control( 'footer_contact_2_url', array(
-        'label'    => __( 'Whatsapp Link', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'url',
-        'description' => __( 'URL for "Whatsapp" link. Use https://wa.me/XXX format.', 'feryfit' ),
-    ) );
-
-    // 项目3 - Phone Support
-    $wp_customize->add_setting( 'footer_contact_3_url', array(
-        'default'           => '',
-        'sanitize_callback' => 'esc_url_raw',
-    ) );
-    $wp_customize->add_control( 'footer_contact_3_url', array(
-        'label'    => __( 'Phone Support Link', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'url',
-        'description' => __( 'URL for "Phone Support" link. Use tel: for phone number.', 'feryfit' ),
-    ) );
-
-    // 社交媒体链接
-    $wp_customize->add_setting( 'footer_social_items', array(
-        'default'           => json_encode( array(
-            array( 'icon' => 'facebook', 'url' => '#' ),
-            array( 'icon' => 'twitter', 'url' => '#' ),
-            array( 'icon' => 'instagram', 'url' => '#' ),
-        ) ),
-        'sanitize_callback' => 'wp_json_encode',
-    ) );
-    $wp_customize->add_control( 'footer_social_items', array(
-        'label'    => __( 'Social Items (JSON)', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'textarea',
-    ) );
-}
-add_action( 'customize_register', 'feryfit_customize_register' );
 
 /**
  * 获取支持多语言的归档页面链接

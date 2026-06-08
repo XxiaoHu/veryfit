@@ -7,6 +7,8 @@
 </head>
 <body <?php body_class(); ?>>
 
+<div id="page" class="site">
+
 <header id="masthead" class="site-header">
     <div class="header-container">
         <!-- 移动端：菜单汉堡按钮（左侧） -->
