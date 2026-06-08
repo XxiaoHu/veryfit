@@ -85,7 +85,7 @@ function feryfit_floating_chat($options = array())
 										<path d="M14.2221 1.75C7.57996 1.75 2.19483 7.09302 2.19483 13.6846C2.19483 15.9393 2.82548 18.0481 3.92071 19.8471L1.75 26.25L8.40897 24.1346C10.1321 25.0799 12.1138 25.6191 14.2221 25.6191C20.8652 25.6191 26.25 20.2753 26.25 13.6846C26.25 7.09302 20.8652 1.75 14.2221 1.75ZM20.2029 18.217C19.9199 18.9184 18.6402 19.5586 18.0756 19.5881C17.5115 19.618 17.4955 20.0252 14.4203 18.6893C11.3455 17.3531 9.49555 14.1041 9.3497 13.8949C9.20374 13.6864 8.15861 12.197 8.21499 10.6981C8.27176 9.19898 9.09256 8.49171 9.38552 8.19755C9.67816 7.90295 10.0137 7.85017 10.2185 7.84684C10.4607 7.8429 10.6175 7.83962 10.7967 7.84623C10.9758 7.85302 11.2447 7.80877 11.4776 8.42805C11.7103 9.04728 12.2674 10.5692 12.3387 10.7243C12.4099 10.8796 12.454 11.0593 12.3443 11.2587C12.2343 11.4585 12.1779 11.5833 12.0183 11.7554C11.8578 11.9276 11.6806 12.1405 11.5375 12.2721C11.3778 12.4179 11.211 12.5769 11.3789 12.8884C11.5467 13.1998 12.1255 14.2204 13.0074 15.0615C14.1408 16.1427 15.1182 16.5014 15.419 16.6648C15.7206 16.829 15.9006 16.8108 16.0876 16.614C16.2738 16.4171 16.8882 15.7528 17.1046 15.4563C17.3209 15.1589 17.5236 15.2171 17.8014 15.3289C18.0791 15.4411 19.56 16.2343 19.8617 16.3981C20.163 16.5616 20.3644 16.6458 20.4364 16.7754C20.5085 16.9056 20.4857 17.5154 20.2029 18.217Z" fill="#999999" />
 									</svg>
 								</span>
-								<span class="feryfit-drawer-text">Chat on WhatsApp</span>
+								<span class="feryfit-drawer-text"><?php echo esc_html( pll__( 'Chat on WhatsApp', 'feryfit' ) ); ?></span>
 								<span class="feryfit-drawer-arrow">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 										<path d="M9.5 6L15.5 12L9.5 18" stroke="#B8B8B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -103,7 +103,7 @@ function feryfit_floating_chat($options = array())
 										<path d="M4.18976 4.45996H23.7341C25.0687 4.45996 26.16 5.51202 26.1768 6.80752L13.9689 13.4389L1.75826 6.81311C1.76945 5.51482 2.8523 4.45996 4.18976 4.45996ZM1.75826 9.35094L1.74707 21.0831C1.74707 22.3898 2.8467 23.4587 4.18976 23.4587H23.7341C25.0771 23.4587 26.1768 22.3898 26.1768 21.0831V9.34534L14.2543 15.6689C14.0724 15.7668 13.8514 15.7668 13.6695 15.6689L1.75826 9.35094Z" fill="#999999" />
 									</svg>
 								</span>
-								<span class="feryfit-drawer-text">Send an Email</span>
+								<span class="feryfit-drawer-text"><?php echo esc_html( pll__( 'Send an Email', 'feryfit' ) ); ?></span>
 								<span class="feryfit-drawer-arrow">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 										<path d="M9.5 6L15.5 12L9.5 18" stroke="#B8B8B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -128,7 +128,7 @@ function feryfit_floating_chat($options = array())
 										</defs>
 									</svg>
 								</span>
-								<span class="feryfit-drawer-text">Message us on Facebook</span>
+								<span class="feryfit-drawer-text"><?php echo esc_html( pll__( 'Message us on Facebook', 'feryfit' ) ); ?></span>
 								<span class="feryfit-drawer-arrow">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 										<path d="M9.5 6L15.5 12L9.5 18" stroke="#B8B8B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -152,7 +152,7 @@ function feryfit_floating_chat($options = array())
 									<path d="M14.2221 1.75C7.57996 1.75 2.19483 7.09302 2.19483 13.6846C2.19483 15.9393 2.82548 18.0481 3.92071 19.8471L1.75 26.25L8.40897 24.1346C10.1321 25.0799 12.1138 25.6191 14.2221 25.6191C20.8652 25.6191 26.25 20.2753 26.25 13.6846C26.25 7.09302 20.8652 1.75 14.2221 1.75ZM20.2029 18.217C19.9199 18.9184 18.6402 19.5586 18.0756 19.5881C17.5115 19.618 17.4955 20.0252 14.4203 18.6893C11.3455 17.3531 9.49555 14.1041 9.3497 13.8949C9.20374 13.6864 8.15861 12.197 8.21499 10.6981C8.27176 9.19898 9.09256 8.49171 9.38552 8.19755C9.67816 7.90295 10.0137 7.85017 10.2185 7.84684C10.4607 7.8429 10.6175 7.83962 10.7967 7.84623C10.9758 7.85302 11.2447 7.80877 11.4776 8.42805C11.7103 9.04728 12.2674 10.5692 12.3387 10.7243C12.4099 10.8796 12.454 11.0593 12.3443 11.2587C12.2343 11.4585 12.1779 11.5833 12.0183 11.7554C11.8578 11.9276 11.6806 12.1405 11.5375 12.2721C11.3778 12.4179 11.211 12.5769 11.3789 12.8884C11.5467 13.1998 12.1255 14.2204 13.0074 15.0615C14.1408 16.1427 15.1182 16.5014 15.419 16.6648C15.7206 16.829 15.9006 16.8108 16.0876 16.614C16.2738 16.4171 16.8882 15.7528 17.1046 15.4563C17.3209 15.1589 17.5236 15.2171 17.8014 15.3289C18.0791 15.4411 19.56 16.2343 19.8617 16.3981C20.163 16.5616 20.3644 16.6458 20.4364 16.7754C20.5085 16.9056 20.4857 17.5154 20.2029 18.217Z" fill="#999999" />
 								</svg>
 							</span>
-							<span class="feryfit-chat-text">Chat on WhatsApp</span>
+							<span class="feryfit-chat-text"><?php echo esc_html( pll__( 'Chat on WhatsApp', 'feryfit' ) ); ?></span>
 							<span class="feryfit-chat-arrow">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 									<path d="M9.5 6L15.5 12L9.5 18" stroke="#B8B8B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -170,7 +170,7 @@ function feryfit_floating_chat($options = array())
 									<path d="M4.18976 4.45996H23.7341C25.0687 4.45996 26.16 5.51202 26.1768 6.80752L13.9689 13.4389L1.75826 6.81311C1.76945 5.51482 2.8523 4.45996 4.18976 4.45996ZM1.75826 9.35094L1.74707 21.0831C1.74707 22.3898 2.8467 23.4587 4.18976 23.4587H23.7341C25.0771 23.4587 26.1768 22.3898 26.1768 21.0831V9.34534L14.2543 15.6689C14.0724 15.7668 13.8514 15.7668 13.6695 15.6689L1.75826 9.35094Z" fill="#999999" />
 								</svg>
 							</span>
-							<span class="feryfit-chat-text">Send an Email</span>
+							<span class="feryfit-chat-text"><?php echo esc_html( pll__( 'Send an Email', 'feryfit' ) ); ?></span>
 							<span class="feryfit-chat-arrow">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 									<path d="M9.5 6L15.5 12L9.5 18" stroke="#B8B8B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -195,7 +195,7 @@ function feryfit_floating_chat($options = array())
 									</defs>
 								</svg>
 							</span>
-							<span class="feryfit-chat-text">Message us on Facebook</span>
+							<span class="feryfit-chat-text"><?php echo esc_html( pll__( 'Message us on Facebook', 'feryfit' ) ); ?></span>
 							<span class="feryfit-chat-arrow">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 									<path d="M9.5 6L15.5 12L9.5 18" stroke="#B8B8B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
