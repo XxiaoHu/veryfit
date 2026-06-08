@@ -495,3 +495,25 @@ function feryfit_breadcrumb_render( $args = array() ) {
         return $html;
     }
 }
+
+/**
+ * 增加 WordPress 文件上传大小限制
+ * 设置最大上传文件大小为 50MB
+ */
+function feryfit_increase_upload_size( $size ) {
+    // 50MB = 50 * 1024 * 1024 bytes
+    return 52428800;
+}
+add_filter( 'upload_size_limit', 'feryfit_increase_upload_size' );
+
+/**
+ * 在 WordPress 管理后台显示当前上传限制
+ */
+function feryfit_display_upload_limit() {
+    $max_upload = wp_max_upload_size();
+    $max_upload_mb = size_format( $max_upload );
+    echo '<div class="notice notice-info"><p>';
+    echo '<strong>当前最大上传文件大小：</strong> ' . esc_html( $max_upload_mb );
+    echo '</p></div>';
+}
+add_action( 'admin_notices', 'feryfit_display_upload_limit' );

@@ -28,6 +28,14 @@
 		"postsPerCategory": {
 			"type": "number",
 			"default": 6
+		},
+		"category1Title": {
+			"type": "string",
+			"default": "Setup & Pairing"
+		},
+		"category2Title": {
+			"type": "string",
+			"default": "Daily Use"
 		}
 	}
 }

@@ -13,6 +13,7 @@ if (! defined('ABSPATH')) {
 }
 
 $section_title      = isset($attributes['sectionTitle']) ? $attributes['sectionTitle'] : 'Hot Video Section';
+$learn_more_text    = isset($attributes['learnMoreText']) ? $attributes['learnMoreText'] : 'Learn More';
 $items_per_row      = 4;
 $rows_per_slide     = 2;
 
@@ -85,7 +86,7 @@ $play_btn_url = get_template_directory_uri() . '/assets/images/Group.png';
 		<div class="video-carousel__header">
 			<h2 class="video-carousel__title"><?php echo esc_html($section_title); ?></h2>
 			<a href="<?php echo esc_url($video_archive_url); ?>" class="video-carousel__learn-more">
-				<?php esc_html_e('Learn More', 'feryfit'); ?> >
+				<?php echo esc_html($learn_more_text); ?> >
 			</a>
 		</div>
 
