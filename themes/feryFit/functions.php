@@ -98,6 +98,12 @@ function feryfit_register_polylang_strings() {
         pll_register_string( 'Phone Support', 'Phone Support', 'feryfit' );
         pll_register_string( 'Follow us', 'Follow us', 'feryfit' );
         pll_register_string( 'VeryfitVip.Store', 'VeryfitVip.Store', 'feryfit' );
+
+        // Search 搜索文本字符串
+        pll_register_string( 'Search by question or keyword', 'Search by question or keyword', 'feryfit' );
+        pll_register_string( 'Search', 'Search', 'feryfit' );
+        pll_register_string( "Can't find what you're looking for?", "Can't find what you're looking for?", 'feryfit' );
+        pll_register_string( "Click the chat bubble in the bottom right corner — our support team is here to help", "Click the chat bubble in the bottom right corner — our support team is here to help", 'feryfit' );
     }
 }
 add_action( 'init', 'feryfit_register_polylang_strings' );

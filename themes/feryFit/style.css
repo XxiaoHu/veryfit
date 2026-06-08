@@ -1307,10 +1307,10 @@ div {
 /* 移动端搜索框样式 */
 @media screen and (max-width: 768px) {
     .search-page .hero-banner__search-form {
-        max-width: 320px;
-        width: 320px;
+        min-width: 320px;
         height: 44px;
         border-radius: 4px;
+        margin: 0 24px;
     }
 
     .search-page .hero-banner__search-icon {

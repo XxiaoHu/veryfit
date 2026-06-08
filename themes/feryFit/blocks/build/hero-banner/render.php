@@ -18,8 +18,8 @@ $subtitle          = isset($attributes['subtitle']) ? $attributes['subtitle'] : 
 $keywords          = isset($attributes['keywords']) ? $attributes['keywords'] : array();
 $banner_width      = isset($attributes['bannerWidth']) ? intval($attributes['bannerWidth']) : 1940;
 $banner_height     = isset($attributes['bannerHeight']) ? intval($attributes['bannerHeight']) : 480;
-$search_placeholder = isset($attributes['searchPlaceholder']) ? $attributes['searchPlaceholder'] : 'Search by question or keyword';
-$search_button_text = isset($attributes['searchButtonText']) ? $attributes['searchButtonText'] : 'Search';
+$search_placeholder = isset($attributes['searchPlaceholder']) ? $attributes['searchPlaceholder'] : pll__( 'Search by question or keyword', 'feryfit' );
+$search_button_text = isset($attributes['searchButtonText']) ? $attributes['searchButtonText'] : pll__( 'Search', 'feryfit' );
 
 $wrapper_attributes = get_block_wrapper_attributes(array(
 	'style' => 'max-width:' . $banner_width . 'px; height:' . $banner_height . 'px; min-height:' . $banner_height . 'px;',

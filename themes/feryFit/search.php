@@ -39,13 +39,13 @@ $search_query = get_search_query();
 					<input
 						type="text"
 						class="hero-banner__search-input"
-						placeholder="Search by question or keyword"
+						placeholder="<?php echo esc_attr( pll__( 'Search by question or keyword', 'feryfit' ) ); ?>"
 						name="s"
 						id="hero-banner-search"
 						value="<?php echo esc_attr( $search_query ); ?>"
 					/>
 					<button type="submit" class="hero-banner__search-button">
-						Search
+						<?php echo esc_html( pll__( 'Search', 'feryfit' ) ); ?>
 					</button>
 				</form>
 			</div>
