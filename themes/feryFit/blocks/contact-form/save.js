@@ -18,7 +18,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 export default function save({ attributes }) {
 	const { emailLabel, emailPlaceholder, nameLabel, namePlaceholder, messageLabel, submitButtonText } = attributes;
 	const blockProps = useBlockProps.save();
-	
+
 	return (
 		<div {...blockProps}>
 			<div className="contact-form-container">
@@ -38,6 +38,7 @@ export default function save({ attributes }) {
 							/>
 						</div>
 					</div>
+					<input type="hidden" name="language" id="contact-form-language" value="" />
 					<div className="contact-form__row">
 						<div className="contact-form__field">
 							<label className="contact-form__label">
