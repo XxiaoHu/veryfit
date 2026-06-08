@@ -14,7 +14,7 @@ get_header(); ?>
 
 
         <div class="video-archive__header">
-            <h2 class="video-archive__title"><?php post_type_archive_title(); ?></h2>
+            <h2 class="video-archive__title"><?php echo esc_html( pll__( 'Video', 'feryfit' ) ); ?></h2>
         </div>
 
         <?php
@@ -86,8 +86,15 @@ get_header(); ?>
         $total_count = count($video_posts);
         $total_pages = intval(max(1, ceil($total_count / $posts_per_page)));
 
-        // 始终使用 /video/ 归档链接
+        // 动态生成视频归档页面链接，支持 Polylang 多语言
         $archive_link = home_url('/video/');
+        if (function_exists('pll_current_language')) {
+            $current_lang = pll_current_language();
+            $default_lang = pll_default_language();
+            if ($current_lang && $current_lang !== $default_lang) {
+                $archive_link = home_url('/' . $current_lang . '/video/');
+            }
+        }
 
         // Redirect if current page exceeds total pages
         if ($current_page > $total_pages) {

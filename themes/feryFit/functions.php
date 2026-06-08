@@ -84,6 +84,20 @@ function feryfit_register_polylang_strings() {
         pll_register_string( 'Chat on WhatsApp', 'Chat on WhatsApp', 'feryfit' );
         pll_register_string( 'Send an Email', 'Send an Email', 'feryfit' );
         pll_register_string( 'Message us on Facebook', 'Message us on Facebook', 'feryfit' );
+        pll_register_string( 'Video', 'Video', 'feryfit' );
+        pll_register_string( 'FAQ', 'FAQ', 'feryfit' );
+
+        // Footer 文本字符串
+        pll_register_string( 'Smart Tech Meets Everyday Life.', 'Smart Tech Meets Everyday Life.', 'feryfit' );
+        pll_register_string( 'Product', 'Product', 'feryfit' );
+        pll_register_string( 'About & Support', 'About & Support', 'feryfit' );
+        pll_register_string( 'Policy', 'Policy', 'feryfit' );
+        pll_register_string( 'Contact us', 'Contact us', 'feryfit' );
+        pll_register_string( 'Customer service:', 'Customer service:', 'feryfit' );
+        pll_register_string( 'Whatsapp', 'Whatsapp', 'feryfit' );
+        pll_register_string( 'Phone Support', 'Phone Support', 'feryfit' );
+        pll_register_string( 'Follow us', 'Follow us', 'feryfit' );
+        pll_register_string( 'VeryfitVip.Store', 'VeryfitVip.Store', 'feryfit' );
     }
 }
 add_action( 'init', 'feryfit_register_polylang_strings' );
@@ -167,133 +181,32 @@ function custom_remove_admin_menus() {
 }
 add_action( 'admin_menu', 'custom_remove_admin_menus', 999 );
 
-// 添加页脚主题自定义选项
-function feryfit_customize_register( $wp_customize ) {
-    // 页脚设置面板
-    $wp_customize->add_section( 'feryfit_footer_settings', array(
-        'title'    => __( 'Footer Settings', 'feryfit' ),
-        'priority' => 100,
-    ) );
+/**
+ * 获取支持多语言的归档页面链接
+ *
+ * @param string $post_type 文章类型
+ * @return string 归档页面URL
+ */
+function feryfit_get_archive_link( $post_type ) {
+    // 对于 video_content，使用自定义 /video/ URL
+    if ( $post_type === 'video_content' ) {
+        $archive_link = home_url( '/video/' );
 
-    // 页脚标签文字
-    $wp_customize->add_setting( 'footer_tagline', array(
-        'default'           => 'Smart Tech Meets Everyday Life.',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'footer_tagline', array(
-        'label'    => __( 'Footer Tagline', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'text',
-    ) );
+        // 支持 Polylang 多语言
+        if ( function_exists( 'pll_current_language' ) ) {
+            $current_lang = pll_current_language();
+            $default_lang = pll_default_language();
+            if ( $current_lang && $current_lang !== $default_lang ) {
+                $archive_link = home_url( '/' . $current_lang . '/video/' );
+            }
+        }
 
-    // 版权信息
-    $wp_customize->add_setting( 'footer_copyright', array(
-        'default'           => '&copy; ' . date( 'Y' ) . ' VeryfitVip.Store.',
-        'sanitize_callback' => 'wp_kses_post',
-    ) );
-    $wp_customize->add_control( 'footer_copyright', array(
-        'label'    => __( 'Copyright Text', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'text',
-    ) );
+        return $archive_link;
+    }
 
-    // 页脚菜单标题 - Product
-    $wp_customize->add_setting( 'footer_title_product', array(
-        'default'           => 'Product',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'footer_title_product', array(
-        'label'    => __( 'Product Section Title', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'text',
-    ) );
-
-    // 页脚菜单标题 - About & Support
-    $wp_customize->add_setting( 'footer_title_about', array(
-        'default'           => 'About & Support',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'footer_title_about', array(
-        'label'    => __( 'About & Support Section Title', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'text',
-    ) );
-
-    // 页脚菜单标题 - Policy
-    $wp_customize->add_setting( 'footer_title_policy', array(
-        'default'           => 'Policy',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'footer_title_policy', array(
-        'label'    => __( 'Policy Section Title', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'text',
-    ) );
-
-    // 页脚菜单标题 - Contact us
-    $wp_customize->add_setting( 'footer_title_contact', array(
-        'default'           => 'Contact us',
-        'sanitize_callback' => 'sanitize_text_field',
-    ) );
-    $wp_customize->add_control( 'footer_title_contact', array(
-        'label'    => __( 'Contact Section Title', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'text',
-    ) );
-
-    // 联系信息链接配置
-    // 项目1 - Customer service
-    $wp_customize->add_setting( 'footer_contact_1_url', array(
-        'default'           => 'mailto:service@runstar.com',
-        'sanitize_callback' => 'esc_url_raw',
-    ) );
-    $wp_customize->add_control( 'footer_contact_1_url', array(
-        'label'    => __( 'Customer Service Link', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'url',
-        'description' => __( 'URL for "Customer service" link. Use mailto: for email.', 'feryfit' ),
-    ) );
-
-    // 项目2 - Whatsapp
-    $wp_customize->add_setting( 'footer_contact_2_url', array(
-        'default'           => '',
-        'sanitize_callback' => 'esc_url_raw',
-    ) );
-    $wp_customize->add_control( 'footer_contact_2_url', array(
-        'label'    => __( 'Whatsapp Link', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'url',
-        'description' => __( 'URL for "Whatsapp" link. Use https://wa.me/XXX format.', 'feryfit' ),
-    ) );
-
-    // 项目3 - Phone Support
-    $wp_customize->add_setting( 'footer_contact_3_url', array(
-        'default'           => '',
-        'sanitize_callback' => 'esc_url_raw',
-    ) );
-    $wp_customize->add_control( 'footer_contact_3_url', array(
-        'label'    => __( 'Phone Support Link', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'url',
-        'description' => __( 'URL for "Phone Support" link. Use tel: for phone number.', 'feryfit' ),
-    ) );
-
-    // 社交媒体链接
-    $wp_customize->add_setting( 'footer_social_items', array(
-        'default'           => json_encode( array(
-            array( 'icon' => 'facebook', 'url' => '#' ),
-            array( 'icon' => 'twitter', 'url' => '#' ),
-            array( 'icon' => 'instagram', 'url' => '#' ),
-        ) ),
-        'sanitize_callback' => 'wp_json_encode',
-    ) );
-    $wp_customize->add_control( 'footer_social_items', array(
-        'label'    => __( 'Social Items (JSON)', 'feryfit' ),
-        'section'  => 'feryfit_footer_settings',
-        'type'     => 'textarea',
-    ) );
+    // 其他文章类型使用默认的归档链接
+    return get_post_type_archive_link( $post_type );
 }
-add_action( 'customize_register', 'feryfit_customize_register' );
 
 /**
  * 获取面包屑导航数据
@@ -336,12 +249,15 @@ function feryfit_breadcrumb_get_items() {
             if ( in_array( $post_type, $always_show_archive ) || in_array( $post_type, $visited_archives ) ) {
                 $post_type_obj = get_post_type_object( $post_type );
                 if ( $post_type_obj ) {
-                    // 对于 video_content，使用自定义 URL
+                    // 获取归档链接（支持多语言）
+                    $archive_link = feryfit_get_archive_link( $post_type );
+
+                    // 获取归档标题（支持翻译）
                     if ( $post_type === 'video_content' ) {
-                        $archive_link = home_url( '/video/' );
-                        $archive_title = $post_type_obj->labels->name;
+                        $archive_title = pll__( 'Video', 'feryfit' );
+                    } elseif ( $post_type === 'faq' ) {
+                        $archive_title = pll__( 'FAQ', 'feryfit' );
                     } else {
-                        $archive_link = get_post_type_archive_link( $post_type );
                         $archive_title = $post_type_obj->labels->name;
                     }
 
@@ -403,9 +319,22 @@ function feryfit_breadcrumb_get_items() {
                 'is_current' => true,
             );
         } elseif ( is_post_type_archive() ) {
+            $post_type = get_query_var( 'post_type' );
+            $archive_title = post_type_archive_title( '', false );
+
+            // 为特定文章类型使用翻译
+            if ( $post_type === 'video_content' || $post_type === 'video' ) {
+                $archive_title = pll__( 'Video', 'feryfit' );
+            } elseif ( $post_type === 'faq' ) {
+                $archive_title = pll__( 'FAQ', 'feryfit' );
+            }
+
+            // 获取归档链接（支持多语言）
+            $archive_link = feryfit_get_archive_link( $post_type );
+
             $items[] = array(
-                'title' => post_type_archive_title( '', false ),
-                'url'   => get_post_type_archive_link( get_query_var( 'post_type' ) ),
+                'title' => $archive_title,
+                'url'   => $archive_link,
                 'is_current' => true,
             );
         } elseif ( is_date() ) {

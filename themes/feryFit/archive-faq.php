@@ -15,7 +15,7 @@ get_header(); ?>
 
         <div class="faq-archive__header">
             <h2 class="faq-archive__title">
-                <?php post_type_archive_title(); ?>
+                <?php echo esc_html( pll__( 'FAQ', 'feryfit' ) ); ?>
             </h2>
         </div>
 
