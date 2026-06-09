@@ -70,6 +70,7 @@ class Blog_Manager {
             'show_ui'            => true,
             'show_in_menu'       => true,
             'menu_position'      => 7,
+            'menu_icon'          => 'dashicons-welcome-write-blog',
             'query_var'          => true,
             'rewrite'            => array( 'slug' => 'blog' ),
             'capability_type'    => 'post',

@@ -173,7 +173,7 @@
             $facebook_url = get_option('feryfit_facebook', '#');
             if ( $facebook_url && $facebook_url !== '#' ) :
             ?>
-            <a href="<?php echo esc_url($facebook_url); ?>" class="footer-social-link">
+            <a href="<?php echo esc_url($facebook_url); ?>" target="_blank" class="footer-social-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M22.6777 0C23.4061 0 24 0.593903 24 1.32227V22.6777C24 23.4061 23.4061 24 22.6777 24V23.9912H16.5635V14.7021H19.6836L20.1514 11.0781H16.5635V8.76758C16.5635 7.7155 16.8516 7.00488 18.3623 7.00488H20.2773V3.76758C19.9446 3.72262 18.8023 3.62402 17.4805 3.62402C14.7111 3.62412 12.8234 5.31429 12.8232 8.40723V11.0781H9.69336V14.7021H12.8232V23.9912H1.32227C0.593903 23.9912 0 23.3973 0 22.6689V1.32227C0 0.593903 0.593903 0 1.32227 0H22.6777Z" fill="white" />
                 </svg>

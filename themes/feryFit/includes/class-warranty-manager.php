@@ -344,7 +344,7 @@ class FeryFit_Warranty_Manager {
 			'manage_options',
 			'feryfit-warranty',
 			array( $this, 'render_admin_page' ),
-			'dashicons-clipboard-list',
+			'dashicons-email',
 			6
 		);
 	}
