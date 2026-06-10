@@ -39,6 +39,14 @@
     "submitButtonText": {
       "type": "string",
       "default": "Activited Now"
+    },
+    "errorTitle": {
+      "type": "string",
+      "default": "Submission Failed"
+    },
+    "errorMessage": {
+      "type": "string",
+      "default": "Failed to submit. Please try again later."
     }
   },
   "editorScript": "file:./index.js",
