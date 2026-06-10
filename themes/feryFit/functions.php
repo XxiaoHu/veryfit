@@ -439,6 +439,14 @@ function feryfit_breadcrumb_render( $args = array() ) {
  * 增加 WordPress 文件上传大小限制
  * 设置最大上传文件大小为 50MB
  */
+/**
+ * 移除 Polylang 切换到阿拉伯语等 RTL 语言时 HTML 标签上的 dir="rtl" 属性
+ */
+function feryfit_remove_rtl_dir( $output ) {
+    return str_replace( 'dir="rtl"', '', $output );
+}
+add_filter( 'language_attributes', 'feryfit_remove_rtl_dir', 999 );
+
 function feryfit_increase_upload_size( $size ) {
     // 50MB = 50 * 1024 * 1024 bytes
     return 52428800;
