@@ -86,8 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	function showErrorModal(customMessage) {
-		const modalTitle = 'Submission Failed';
-		const modalMessage = customMessage || 'Failed to submit. Please try again later.';
+		const modalTitle = form.getAttribute('data-error-title') || 'Submission Failed';
+		const modalMessage = customMessage || form.getAttribute('data-error-message') || 'Failed to submit. Please try again later.';
 
 		const modal = document.createElement('div');
 		modal.className = 'contact-form__error-modal';
