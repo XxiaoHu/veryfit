@@ -40,14 +40,10 @@
     },
     "title": {
       "type": "string",
-      "source": "html",
-      "selector": ".hero-banner__title",
       "default": "欢迎来到我们的网站"
     },
     "subtitle": {
       "type": "string",
-      "source": "html",
-      "selector": ".hero-banner__subtitle",
       "default": "这是一个精美的首页横幅"
     },
     "keywords": {
