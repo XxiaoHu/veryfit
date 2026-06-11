@@ -16,13 +16,13 @@ import { useBlockProps } from '@wordpress/block-editor';
  * @return {Element} Element to render.
  */
 export default function save({ attributes }) {
-	const { emailLabel, emailPlaceholder, nameLabel, namePlaceholder, messageLabel, submitButtonText, errorTitle, errorMessage } = attributes;
+	const { emailLabel, emailPlaceholder, nameLabel, namePlaceholder, messageLabel, submitButtonText, errorTitle, errorMessage, successMessage } = attributes;
 	const blockProps = useBlockProps.save();
 
 	return (
 		<div {...blockProps}>
 			<div className="contact-form-container">
-				<form id="contact-form" className="contact-form" data-error-title={ errorTitle } data-error-message={ errorMessage }>
+				<form id="contact-form" className="contact-form" data-error-title={ errorTitle } data-error-message={ errorMessage } data-success-message={ successMessage }>
 					<div className="contact-form__row contact-form__row--honeypot">
 						<div className="contact-form__field">
 							<label className="contact-form__label" htmlFor="hp_website_cf">

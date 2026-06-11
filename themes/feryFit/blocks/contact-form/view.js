@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
 								<circle cx="16" cy="16" r="14" stroke="#22C55E" stroke-width="3" stroke-linejoin="round"/>
 								<path d="M10 16L14 20L24 10" stroke="#22C55E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 							</svg>
-							<span>Submission Successful</span>
+							<span>${form.getAttribute('data-success-message') || 'Submission Successful'}</span>
 						</div>
 					`;
 					submitButton.insertAdjacentHTML('afterend', successHtml);

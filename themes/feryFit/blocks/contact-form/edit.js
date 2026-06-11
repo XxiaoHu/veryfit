@@ -9,7 +9,7 @@ import { PanelBody, TextControl } from '@wordpress/components';
 import './editor.scss';
 
 export default function Edit({ attributes, setAttributes }) {
-	const { emailLabel, emailPlaceholder, nameLabel, namePlaceholder, messageLabel, submitButtonText, errorTitle, errorMessage } = attributes;
+	const { emailLabel, emailPlaceholder, nameLabel, namePlaceholder, messageLabel, submitButtonText, errorTitle, errorMessage, successMessage } = attributes;
 	const blockProps = useBlockProps();
 
 	return (
@@ -65,6 +65,12 @@ export default function Edit({ attributes, setAttributes }) {
 						value={ errorMessage }
 						onChange={ ( value ) => setAttributes( { errorMessage: value } ) }
 						placeholder={ __( '输入失败弹框消息...', 'feryfit' ) }
+					/>
+					<TextControl
+						label={ __( '成功提示语', 'feryfit' ) }
+						value={ successMessage }
+						onChange={ ( value ) => setAttributes( { successMessage: value } ) }
+						placeholder={ __( '输入成功提示语...', 'feryfit' ) }
 					/>
 				</PanelBody>
 			</InspectorControls>
