@@ -187,7 +187,7 @@ $search_query = get_search_query();
 						<img src="<?php echo get_template_directory_uri(); ?>/assets/images/noSearch.png" alt="No results" />
 					</div>
 					<h3 class="search-no-results__title"><?php echo esc_html(pll__("Can't find what you're looking for?")); ?></h3>
-					<p class="search-no-results__desc"><?php echo esc_html(pll__("Click the chat bubble in the bottom right corner — our support team is here to help")); ?> <span class="search-no-results__emoji">💬</span></p>
+					<p class="search-no-results__desc"><?php echo esc_html(pll__("Click the chat bubble in the bottom right corner — our support team is here to help")); ?> <span class="search-no-results__emoji"></span></p>
 				</div>
 
 			<?php endif; ?>
