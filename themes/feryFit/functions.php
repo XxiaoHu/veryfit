@@ -78,7 +78,6 @@ function feryfit_register_polylang_strings() {
         pll_register_string( 'Share your thoughts...', 'Share your thoughts...', 'feryfit' );
         pll_register_string( 'results have been found', '%d results have been found', 'feryfit' );
         pll_register_string( 'Home', 'Home', 'feryfit' );
-        pll_register_string( 'Search Results', 'Search Results', 'feryfit' );
         pll_register_string( 'Page Not Found', 'Page Not Found', 'feryfit' );
         pll_register_string( 'Sleep & Health', 'Sleep & Health', 'feryfit' );
         pll_register_string( 'Chat on WhatsApp', 'Chat on WhatsApp', 'feryfit' );
@@ -359,7 +358,7 @@ function feryfit_breadcrumb_get_items() {
     } elseif ( is_search() ) {
         // 搜索结果页面
         $items[] = array(
-            'title' => pll__( 'Search Results', 'feryfit' ) . ': ' . get_search_query(),
+            'title' => 'Search Results: ' . get_search_query(),
             'url'   => '',
             'is_current' => true,
         );
