@@ -55,7 +55,7 @@ $search_query = get_search_query();
 			<?php if ( have_posts() ) : ?>
 
 				<div class="search-results-count">
-					<?php global $wp_query; echo $wp_query->found_posts; ?> <?php echo esc_html(pll__('results have been found')); ?>
+					<?php global $wp_query; echo esc_html( sprintf( pll__( '%d results have been found', 'feryfit' ), $wp_query->found_posts ) ); ?>
 				</div>
 
 				<ol class="search-results-list">
