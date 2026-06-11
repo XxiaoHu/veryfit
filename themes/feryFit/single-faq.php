@@ -79,6 +79,48 @@ feryfit_floating_chat(array(
 ?>
 
 <script>
+	// Daily like tracking via localStorage
+	function faqGetToday() {
+		var d = new Date();
+		return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+	}
+
+	function faqGetLikes() {
+		try {
+			var raw = localStorage.getItem('faq_likes');
+			var data = raw ? JSON.parse(raw) : {};
+			var today = faqGetToday();
+			var cleaned = {};
+			if (data[today]) {
+				cleaned[today] = data[today];
+			}
+			if (Object.keys(data).length !== Object.keys(cleaned).length) {
+				localStorage.setItem('faq_likes', JSON.stringify(cleaned));
+			}
+			return cleaned;
+		} catch(e) {
+			return {};
+		}
+	}
+
+	function faqHasLikedToday(faqId) {
+		var likes = faqGetLikes();
+		var today = faqGetToday();
+		return !!(likes[today] && likes[today][faqId]);
+	}
+
+	function faqMarkLikedToday(faqId) {
+		var likes = faqGetLikes();
+		var today = faqGetToday();
+		if (!likes[today]) {
+			likes[today] = {};
+		}
+		likes[today][faqId] = true;
+		try {
+			localStorage.setItem('faq_likes', JSON.stringify(likes));
+		} catch(e) {}
+	}
+
 	jQuery(document).ready(function($) {
 		console.log('FAQ vote script loaded with jQuery');
 
@@ -91,7 +133,9 @@ feryfit_floating_chat(array(
 		}
 
 		var faqId = $footerBody.data('faq-id');
+		var $likeButton = $footerBody.find('.faq-like-button');
 
+		// On load: fetch count + check if already liked today
 		$.ajax({
 			url: '<?php echo admin_url('admin-ajax.php'); ?>',
 			type: 'POST',
@@ -101,27 +145,40 @@ feryfit_floating_chat(array(
 			},
 			success: function(response) {
 				if (response.success) {
-					$footerBody.find('.faq-like-count').text(response.data.yes_votes);
+					$likeButton.find('.faq-like-count').text(response.data.yes_votes);
 				}
-				$footerBody.find('.faq-like-button').removeClass('loading');
+				initLikeButton();
 			},
 			error: function() {
-				$footerBody.find('.faq-like-count').text('0');
-				$footerBody.find('.faq-like-button').removeClass('loading');
+				$likeButton.find('.faq-like-count').text('0');
+				initLikeButton();
 			}
 		});
 
-		$footerBody.on('click', '.faq-like-button', function(e) {
+		function initLikeButton() {
+			$likeButton.removeClass('loading');
+
+			if (faqHasLikedToday(faqId)) {
+				$likeButton.addClass('faq-like-button--liked');
+				$likeButton.prop('disabled', true);
+				$likeButton.attr('title', '已点赞');
+			}
+		}
+
+		$likeButton.on('click', function(e) {
 			e.preventDefault();
 
-			var $button = $(this);
-			var vote = $button.data('vote');
+			if ($likeButton.hasClass('faq-like-button--liked')) {
+				return;
+			}
+
+			var vote = $likeButton.data('vote');
 			console.log('Like button clicked:', vote);
 
-			var currentCount = parseInt($button.find('.faq-like-count').text()) || 0;
+			var currentCount = parseInt($likeButton.find('.faq-like-count').text()) || 0;
 
-			$button.prop('disabled', true);
-			$button.find('.faq-like-count').text('...');
+			$likeButton.prop('disabled', true);
+			$likeButton.find('.faq-like-count').text('...');
 
 			$.ajax({
 				url: '<?php echo admin_url('admin-ajax.php'); ?>',
@@ -135,26 +192,23 @@ feryfit_floating_chat(array(
 					console.log('AJAX response:', response);
 
 					if (response.success) {
-						$button.find('.faq-like-count').text(currentCount + 1);
-						$button.prop('disabled', false);
+						faqMarkLikedToday(faqId);
+						$likeButton.addClass('faq-like-button--liked');
+						$likeButton.find('.faq-like-count').text(currentCount + 1);
 					} else {
-						$.ajax({
-							url: '<?php echo admin_url('admin-ajax.php'); ?>',
-							type: 'POST',
-							data: {
-								action: 'feryfit_get_faq_votes',
-								faq_id: faqId
-							},
-							success: function(response) {
-								if (response.success) {
-									$button.find('.faq-like-count').text(response.data.yes_votes);
-								}
-							}
-						});
+						faqMarkLikedToday(faqId);
+						$likeButton.addClass('faq-like-button--liked');
+						$likeButton.prop('disabled', true);
+						if (response.data && typeof response.data.yes_votes !== 'undefined') {
+							$likeButton.find('.faq-like-count').text(response.data.yes_votes);
+						} else {
+							$likeButton.find('.faq-like-count').text(currentCount);
+						}
 					}
 				},
 				error: function(xhr, status, error) {
 					console.error('AJAX error:', status, error);
+					$likeButton.prop('disabled', false);
 					$.ajax({
 						url: '<?php echo admin_url('admin-ajax.php'); ?>',
 						type: 'POST',
@@ -162,9 +216,9 @@ feryfit_floating_chat(array(
 							action: 'feryfit_get_faq_votes',
 							faq_id: faqId
 						},
-						success: function(response) {
-							if (response.success) {
-								$button.find('.faq-like-count').text(response.data.yes_votes);
+						success: function(resp) {
+							if (resp.success) {
+								$likeButton.find('.faq-like-count').text(resp.data.yes_votes);
 							}
 						}
 					});
