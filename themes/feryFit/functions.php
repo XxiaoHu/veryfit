@@ -77,7 +77,6 @@ function feryfit_register_polylang_strings() {
         pll_register_string( 'Submitting...', 'Submitting...', 'feryfit' );
         pll_register_string( 'Share your thoughts...', 'Share your thoughts...', 'feryfit' );
         pll_register_string( 'results have been found', '%d results have been found', 'feryfit' );
-        pll_register_string( 'Home', 'Home', 'feryfit' );
         pll_register_string( 'Page Not Found', 'Page Not Found', 'feryfit' );
         pll_register_string( 'Sleep & Health', 'Sleep & Health', 'feryfit' );
         pll_register_string( 'Chat on WhatsApp', 'Chat on WhatsApp', 'feryfit' );
