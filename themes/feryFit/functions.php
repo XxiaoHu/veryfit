@@ -223,7 +223,7 @@ function feryfit_breadcrumb_get_items() {
 
     // 添加首页
     $items[] = array(
-        'title' => pll__( 'Home', 'feryfit' ),
+        'title' => get_the_title( get_option( 'page_on_front' ) ) ?: get_bloginfo( 'name' ),
         'url'   => home_url( '/' ),
         'is_current' => false,
     );
