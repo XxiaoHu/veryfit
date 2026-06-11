@@ -16,18 +16,33 @@ function feryfit_handle_faq_vote() {
     if ( ! isset( $_POST['faq_id'], $_POST['vote'] ) ) {
         wp_send_json_error( array( 'message' => '缺少参数' ) );
     }
-    
+
     $faq_id = intval( $_POST['faq_id'] );
     $vote = sanitize_text_field( $_POST['vote'] );
-    
+
     if ( ! in_array( $vote, array( 'yes', 'no' ) ) ) {
         wp_send_json_error( array( 'message' => '无效的投票选项' ) );
     }
-    
+
+    // IP-based daily rate limit: one vote per FAQ per IP per day
+    $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+    $today = gmdate( 'Y-m-d' );
+    $transient_key = 'faq_vote_' . $faq_id . '_' . md5( $ip ) . '_' . $today;
+    if ( get_transient( $transient_key ) ) {
+        // Already voted today, return current count without incrementing
+        $yes_votes = get_post_meta( $faq_id, '_faq_yes_votes', true );
+        $no_votes = get_post_meta( $faq_id, '_faq_no_votes', true );
+        wp_send_json_error( array(
+            'message' => '今日已点赞',
+            'yes_votes' => empty( $yes_votes ) ? 0 : intval( $yes_votes ),
+            'no_votes' => empty( $no_votes ) ? 0 : intval( $no_votes ),
+        ) );
+    }
+
     // Get current votes
     $yes_votes = get_post_meta( $faq_id, '_faq_yes_votes', true );
     $no_votes = get_post_meta( $faq_id, '_faq_no_votes', true );
-    
+
     // Initialize if not set
     if ( empty( $yes_votes ) ) {
         $yes_votes = 0;
@@ -35,7 +50,7 @@ function feryfit_handle_faq_vote() {
     if ( empty( $no_votes ) ) {
         $no_votes = 0;
     }
-    
+
     // Update votes
     if ( $vote === 'yes' ) {
         $yes_votes++;
@@ -44,7 +59,11 @@ function feryfit_handle_faq_vote() {
         $no_votes++;
         update_post_meta( $faq_id, '_faq_no_votes', $no_votes );
     }
-    
+
+    // Set transient to prevent re-vote (expires at end of day GMT)
+    $seconds_until_midnight = strtotime( 'tomorrow GMT' ) - time();
+    set_transient( $transient_key, 1, $seconds_until_midnight );
+
     wp_send_json_success( array(
         'yes_votes' => $yes_votes,
         'no_votes' => $no_votes,

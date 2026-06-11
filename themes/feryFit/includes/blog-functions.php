@@ -398,6 +398,21 @@ function feryfit_handle_blog_like() {
         wp_send_json_error( array( 'message' => '无效的投票选项' ) );
     }
 
+    // IP-based daily rate limit: one like per post per IP per day
+    $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+    $today = gmdate( 'Y-m-d' );
+    $transient_key = 'blog_like_' . $post_id . '_' . md5( $ip ) . '_' . $today;
+    if ( get_transient( $transient_key ) ) {
+        // Already liked today, return current count without incrementing
+        $yes_votes = get_post_meta( $post_id, '_blog_yes_votes', true );
+        $no_votes = get_post_meta( $post_id, '_blog_no_votes', true );
+        wp_send_json_error( array(
+            'message' => '今日已点赞',
+            'yes_votes' => empty( $yes_votes ) ? 0 : intval( $yes_votes ),
+            'no_votes' => empty( $no_votes ) ? 0 : intval( $no_votes ),
+        ) );
+    }
+
     $yes_votes = get_post_meta( $post_id, '_blog_yes_votes', true );
     $no_votes = get_post_meta( $post_id, '_blog_no_votes', true );
 
@@ -415,6 +430,10 @@ function feryfit_handle_blog_like() {
         $no_votes++;
         update_post_meta( $post_id, '_blog_no_votes', $no_votes );
     }
+
+    // Set transient to prevent re-like (expires at end of day GMT)
+    $seconds_until_midnight = strtotime( 'tomorrow GMT' ) - time();
+    set_transient( $transient_key, 1, $seconds_until_midnight );
 
     wp_send_json_success( array(
         'yes_votes' => $yes_votes,

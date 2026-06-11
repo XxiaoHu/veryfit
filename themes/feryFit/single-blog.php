@@ -81,6 +81,49 @@ feryfit_floating_chat(array(
 ?>
 
 <script>
+	// Daily like tracking via localStorage
+	function blogGetToday() {
+		var d = new Date();
+		return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+	}
+
+	function blogGetLikes() {
+		try {
+			var raw = localStorage.getItem('blog_likes');
+			var data = raw ? JSON.parse(raw) : {};
+			// Clean up stale dates
+			var today = blogGetToday();
+			var cleaned = {};
+			if (data[today]) {
+				cleaned[today] = data[today];
+			}
+			if (Object.keys(data).length !== Object.keys(cleaned).length) {
+				localStorage.setItem('blog_likes', JSON.stringify(cleaned));
+			}
+			return cleaned;
+		} catch(e) {
+			return {};
+		}
+	}
+
+	function blogHasLikedToday(postId) {
+		var likes = blogGetLikes();
+		var today = blogGetToday();
+		return !!(likes[today] && likes[today][postId]);
+	}
+
+	function blogMarkLikedToday(postId) {
+		var likes = blogGetLikes();
+		var today = blogGetToday();
+		if (!likes[today]) {
+			likes[today] = {};
+		}
+		likes[today][postId] = true;
+		try {
+			localStorage.setItem('blog_likes', JSON.stringify(likes));
+		} catch(e) {}
+	}
+
 	jQuery(document).ready(function($) {
 		var $feedbackWrapper = $('.blog-feedback-wrapper');
 
@@ -90,7 +133,9 @@ feryfit_floating_chat(array(
 		}
 
 		var postId = $feedbackWrapper.data('post-id');
+		var $likeButton = $feedbackWrapper.find('.blog-like-button');
 
+		// On load: fetch count + check if already liked today
 		$.ajax({
 			url: '<?php echo admin_url('admin-ajax.php'); ?>',
 			type: 'POST',
@@ -100,26 +145,38 @@ feryfit_floating_chat(array(
 			},
 			success: function(response) {
 				if (response.success) {
-					$feedbackWrapper.find('.blog-like-count').text(response.data.yes_votes);
+					$likeButton.find('.blog-like-count').text(response.data.yes_votes);
 				}
-				$feedbackWrapper.find('.blog-like-button').removeClass('loading');
+				initLikeButton();
 			},
 			error: function() {
-				$feedbackWrapper.find('.blog-like-count').text('0');
-				$feedbackWrapper.find('.blog-like-button').removeClass('loading');
+				$likeButton.find('.blog-like-count').text('0');
+				initLikeButton();
 			}
 		});
 
-		$feedbackWrapper.on('click', '.blog-like-button', function(e) {
+		function initLikeButton() {
+			$likeButton.removeClass('loading');
+
+			if (blogHasLikedToday(postId)) {
+				$likeButton.addClass('blog-like-button--liked');
+				$likeButton.prop('disabled', true);
+				$likeButton.attr('title', '已点赞');
+			}
+		}
+
+		$likeButton.on('click', function(e) {
 			e.preventDefault();
 
-			var $button = $(this);
-			var vote = $button.data('vote');
+			if ($likeButton.hasClass('blog-like-button--liked')) {
+				return;
+			}
 
-			var currentCount = parseInt($button.find('.blog-like-count').text()) || 0;
+			var vote = $likeButton.data('vote');
+			var currentCount = parseInt($likeButton.find('.blog-like-count').text()) || 0;
 
-			$button.prop('disabled', true);
-			$button.find('.blog-like-count').text('...');
+			$likeButton.prop('disabled', true);
+			$likeButton.find('.blog-like-count').text('...');
 
 			$.ajax({
 				url: '<?php echo admin_url('admin-ajax.php'); ?>',
@@ -131,26 +188,26 @@ feryfit_floating_chat(array(
 				},
 				success: function(response) {
 					if (response.success) {
-						$button.find('.blog-like-count').text(currentCount + 1);
-						$button.prop('disabled', false);
+						blogMarkLikedToday(postId);
+						$likeButton.addClass('blog-like-button--liked');
+						$likeButton.find('.blog-like-count').text(currentCount + 1);
 					} else {
-						$.ajax({
-							url: '<?php echo admin_url('admin-ajax.php'); ?>',
-							type: 'POST',
-							data: {
-								action: 'feryfit_get_post_likes',
-								post_id: postId
-							},
-							success: function(response) {
-								if (response.success) {
-									$button.find('.blog-like-count').text(response.data.yes_votes);
-								}
-							}
-						});
+						// Already liked (server-side reject) or other error
+						blogMarkLikedToday(postId);
+						$likeButton.addClass('blog-like-button--liked');
+						$likeButton.prop('disabled', true);
+						// Use the count returned by server
+						if (response.data && typeof response.data.yes_votes !== 'undefined') {
+							$likeButton.find('.blog-like-count').text(response.data.yes_votes);
+						} else {
+							$likeButton.find('.blog-like-count').text(currentCount);
+						}
 					}
 				},
 				error: function(xhr, status, error) {
-					console.error('AJAX error:', status, error);
+					console.error('Like error:', status, error);
+					// Restore count on network error (don't mark as liked)
+					$likeButton.prop('disabled', false);
 					$.ajax({
 						url: '<?php echo admin_url('admin-ajax.php'); ?>',
 						type: 'POST',
@@ -158,9 +215,9 @@ feryfit_floating_chat(array(
 							action: 'feryfit_get_post_likes',
 							post_id: postId
 						},
-						success: function(response) {
-							if (response.success) {
-								$button.find('.blog-like-count').text(response.data.yes_votes);
+						success: function(resp) {
+							if (resp.success) {
+								$likeButton.find('.blog-like-count').text(resp.data.yes_votes);
 							}
 						}
 					});
