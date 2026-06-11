@@ -44,6 +44,10 @@
 		"errorMessage": {
 			"type": "string",
 			"default": "Failed to submit. Please try again later."
+		},
+		"successMessage": {
+			"type": "string",
+			"default": "Submission Successful"
 		}
 	},
 	"editorScript": "file:./index.js",
