@@ -26,9 +26,9 @@ class Video_Content_Manager {
         add_action( 'init', array( $this, 'register_query_vars' ), 15 );
         add_filter( 'query_vars', array( $this, 'add_video_content_query_vars' ) );
         add_filter( 'post_type_link', array( $this, 'modify_video_content_permalink' ), 10, 2 );
-        add_action( 'template_redirect', array( $this, 'setup_video_content_query' ), 1 );
         add_action( 'after_switch_theme', array( $this, 'flush_rewrite_rules_after_switch' ) );
         add_action( 'admin_init', array( $this, 'maybe_flush_rewrite_rules' ) );
+        add_action( 'pre_get_posts', array( $this, 'setup_video_content_query' ) );
         add_action( 'pre_get_posts', array( $this, 'handle_video_content_archive_rewrite' ) );
         add_filter( 'template_include', array( $this, 'video_content_template_include' ), 99 );
 
@@ -91,6 +91,11 @@ class Video_Content_Manager {
             'index.php?video_content_archive=1&paged=$matches[1]',
             'top'
         );
+        add_rewrite_rule(
+            '^video/([0-9]+)/?$',
+            'index.php?post_type=video_content&p=$matches[1]',
+            'top'
+        );
 
         // Polylang 多语言支持 - 添加带语言前缀的重写规则
         if ( function_exists( 'pll_languages_list' ) ) {
@@ -105,6 +110,11 @@ class Video_Content_Manager {
                 add_rewrite_rule(
                     '^' . $lang . '/video/page/?([0-9]{1,})/?$',
                     'index.php?video_content_archive=1&lang=' . $lang . '&paged=$matches[1]',
+                    'top'
+                );
+                add_rewrite_rule(
+                    '^' . $lang . '/video/([0-9]+)/?$',
+                    'index.php?post_type=video_content&p=$matches[1]&lang=' . $lang,
                     'top'
                 );
             }
@@ -147,7 +157,16 @@ class Video_Content_Manager {
      */
     public function modify_video_content_permalink( $post_link, $post ) {
         if ( $post->post_type === 'video_content' ) {
-            return home_url( '/index.php?post_type=video_content&p=' . $post->ID );
+            $path = '/video/' . $post->ID . '/';
+
+            if ( function_exists( 'pll_get_post_language' ) && function_exists( 'pll_default_language' ) ) {
+                $lang = pll_get_post_language( $post->ID );
+                if ( $lang && $lang !== pll_default_language() ) {
+                    $path = '/' . $lang . $path;
+                }
+            }
+
+            return home_url( $path );
         }
         return $post_link;
     }
@@ -155,16 +174,18 @@ class Video_Content_Manager {
     /**
      * Setup video content query on frontend
      */
-    public function setup_video_content_query() {
-        global $wp_query;
+    public function setup_video_content_query( $query ) {
+        if ( is_admin() || ! $query->is_main_query() ) {
+            return;
+        }
 
         // 处理归档页面
         if ( get_query_var( 'video_content_archive' ) && ! is_admin() ) {
-            $wp_query->set( 'post_type', 'video_content' );
-            $wp_query->is_archive = true;
-            $wp_query->is_post_type_archive = true;
-            $wp_query->is_home = false;
-            $wp_query->is_singular = false;
+            $query->set( 'post_type', 'video_content' );
+            $query->is_archive = true;
+            $query->is_post_type_archive = true;
+            $query->is_home = false;
+            $query->is_singular = false;
 
             // 处理 Polylang 语言参数
             $lang = get_query_var( 'lang' );
@@ -180,13 +201,13 @@ class Video_Content_Manager {
         if ( ! is_admin() && isset( $_GET['post_type'] ) && $_GET['post_type'] === 'video_content' && isset( $_GET['p'] ) ) {
             $video_content_id = intval( $_GET['p'] );
             if ( $video_content_id > 0 ) {
-                $wp_query->set( 'p', $video_content_id );
-                $wp_query->set( 'post_type', 'video_content' );
-                $wp_query->is_singular = true;
-                $wp_query->is_single = true;
-                $wp_query->is_page = false;
-                $wp_query->is_archive = false;
-                $wp_query->is_home = false;
+                $query->set( 'p', $video_content_id );
+                $query->set( 'post_type', 'video_content' );
+                $query->is_singular = true;
+                $query->is_single = true;
+                $query->is_page = false;
+                $query->is_archive = false;
+                $query->is_home = false;
             }
         }
     }
@@ -231,11 +252,11 @@ class Video_Content_Manager {
      */
     public function maybe_flush_rewrite_rules() {
         $version = get_option( 'feryfit_video_content_rewrite_version' );
-        if ( $version !== '6' ) {
+        if ( $version !== '7' ) {
             $this->register_video_content_post_type();
             $this->add_video_content_rewrite_rules();
             flush_rewrite_rules();
-            update_option( 'feryfit_video_content_rewrite_version', '6' );
+            update_option( 'feryfit_video_content_rewrite_version', '7' );
         }
     }
 
