@@ -43,10 +43,19 @@ function feryfit_get_video_content_url( $video_content_id ) {
 }
 
 /**
- * Get video content permalink (使用查询参数格式)
+ * Get video content permalink
  */
 function feryfit_get_video_content_permalink( $video_content_id ) {
-    return home_url( '/index.php?post_type=video_content&p=' . $video_content_id );
+    $path = '/video/' . absint( $video_content_id ) . '/';
+
+    if ( function_exists( 'pll_get_post_language' ) && function_exists( 'pll_default_language' ) ) {
+        $lang = pll_get_post_language( $video_content_id );
+        if ( $lang && $lang !== pll_default_language() ) {
+            $path = '/' . $lang . $path;
+        }
+    }
+
+    return home_url( $path );
 }
 
 /**
