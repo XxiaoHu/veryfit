@@ -78,6 +78,9 @@ class FeryFit_Warranty_Manager {
 	public function verify_warranty_nonce( $request ) {
 		$nonce = $request->get_header( 'x_feryfit_nonce' );
 		if ( ! $nonce ) {
+			$nonce = $request->get_header( 'x-feryfit-nonce' );
+		}
+		if ( ! $nonce ) {
 			$nonce = $request->get_param( '_wpnonce' );
 		}
 		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'feryfit_warranty_nonce' ) ) {
@@ -93,11 +96,8 @@ class FeryFit_Warranty_Manager {
 	public function handle_form_submission( $request ) {
 		global $wpdb;
 
-		$user_ip = isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '';
-		$rate_limit_key = 'feryfit_warranty_rate_limit_' . md5( $user_ip );
-		$current_count = get_transient( $rate_limit_key );
-
-		if ( $current_count !== false && $current_count >= 3 ) {
+		$user_ip = feryfit_get_client_ip();
+		if ( ! feryfit_rate_limit_check( 'warranty:' . $user_ip, 3, MINUTE_IN_SECONDS ) ) {
 			return new WP_Error( 'rate_limit', 'Too many requests. Please try again later.', array( 'status' => 429 ) );
 		}
 
@@ -106,12 +106,12 @@ class FeryFit_Warranty_Manager {
 			return new WP_Error( 'spam_detected', 'Submission rejected.', array( 'status' => 403 ) );
 		}
 
-		$order_number = sanitize_text_field( $request->get_param( 'order_number' ) );
-		$email = sanitize_email( $request->get_param( 'email' ) );
-		$name = sanitize_text_field( $request->get_param( 'name' ) );
-		$country = sanitize_text_field( $request->get_param( 'country' ) );
-		$language = sanitize_text_field( $request->get_param( 'language' ) );
-		$rating = intval( $request->get_param( 'rating' ) );
+		$order_number = substr( sanitize_text_field( $request->get_param( 'order_number' ) ), 0, 100 );
+		$email = substr( sanitize_email( $request->get_param( 'email' ) ), 0, 255 );
+		$name = substr( sanitize_text_field( $request->get_param( 'name' ) ), 0, 255 );
+		$country = substr( sanitize_text_field( $request->get_param( 'country' ) ), 0, 100 );
+		$language = substr( sanitize_text_field( $request->get_param( 'language' ) ), 0, 10 );
+		$rating = max( 0, min( 5, intval( $request->get_param( 'rating' ) ) ) );
 		$receive_updates = $request->get_param( 'receive_updates' ) ? 1 : 0;
 		$future_tests = $request->get_param( 'future_tests' ) ? 1 : 0;
 
@@ -148,11 +148,6 @@ class FeryFit_Warranty_Manager {
 		);
 
 		if ( $result ) {
-			if ( $current_count === false ) {
-				set_transient( $rate_limit_key, 1, 60 );
-			} else {
-				set_transient( $rate_limit_key, $current_count + 1, 60 );
-			}
 			return array( 'success' => true, 'message' => 'Application submitted successfully!' );
 		} else {
 			return new WP_Error( 'db_error', 'Failed to save application', array( 'status' => 500 ) );
@@ -305,7 +300,7 @@ class FeryFit_Warranty_Manager {
 
 		// 输出数据
 		foreach ( $applications as $app ) {
-			$row = array(
+			$row = array_map( 'feryfit_sanitize_csv_cell', array(
 				$app['id'],
 				$app['order_number'],
 				$app['email'],
@@ -315,7 +310,7 @@ class FeryFit_Warranty_Manager {
 				$app['rating'],
 				$app['receive_updates'] ? '是' : '否',
 				$app['created_at'],
-			);
+			) );
 			fputcsv( $output, $row );
 		}
 

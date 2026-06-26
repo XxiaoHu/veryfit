@@ -41,7 +41,7 @@ get_header(); ?>
 			</div><!-- .entry-content -->
 
 		</article><!-- #post-<?php the_ID(); ?> -->
-		<div class="blog-feedback-wrapper" data-post-id="<?php echo get_the_ID(); ?>">
+		<div class="blog-feedback-wrapper" data-post-id="<?php echo esc_attr( get_the_ID() ); ?>">
 			<hr style="border: 1px solid  #B8B8B8;">
 			<div class="blog-like-button-box">
 				<button class="blog-like-button loading" data-vote="yes">
@@ -81,6 +81,8 @@ feryfit_floating_chat(array(
 ?>
 
 <script>
+	var feryfitBlogNonce = '<?php echo esc_js( wp_create_nonce( 'feryfit_blog_action' ) ); ?>';
+
 	// Daily like tracking via localStorage
 	function blogGetToday() {
 		var d = new Date();
@@ -184,7 +186,8 @@ feryfit_floating_chat(array(
 				data: {
 					action: 'feryfit_post_like',
 					post_id: postId,
-					vote: vote
+					vote: vote,
+					nonce: feryfitBlogNonce
 				},
 				success: function(response) {
 					if (response.success) {
@@ -238,7 +241,8 @@ feryfit_floating_chat(array(
 			var formData = {
 				action: 'feryfit_submit_blog_comment',
 				post_id: postId,
-				comment: $form.find('[name="comment"]').val()
+				comment: $form.find('[name="comment"]').val(),
+				nonce: feryfitBlogNonce
 			};
 
 			console.log('Submitting comment:', formData);

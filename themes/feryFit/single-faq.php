@@ -39,7 +39,7 @@ get_header(); ?>
 			</div><!-- .entry-content -->
 
 		</article><!-- #post-<?php the_ID(); ?> -->
-		<div class="footer_body" data-faq-id="<?php echo get_the_ID(); ?>">
+		<div class="footer_body" data-faq-id="<?php echo esc_attr( get_the_ID() ); ?>">
 			<hr style="border: 1px solid  #B8B8B8;">
 			<div class="faq-like-button-box">
 				<button class="faq-like-button loading" data-vote="yes">
@@ -79,6 +79,8 @@ feryfit_floating_chat(array(
 ?>
 
 <script>
+	var feryfitFaqNonce = '<?php echo esc_js( wp_create_nonce( 'feryfit_faq_action' ) ); ?>';
+
 	// Daily like tracking via localStorage
 	function faqGetToday() {
 		var d = new Date();
@@ -186,7 +188,8 @@ feryfit_floating_chat(array(
 				data: {
 					action: 'feryfit_faq_vote',
 					faq_id: faqId,
-					vote: vote
+					vote: vote,
+					nonce: feryfitFaqNonce
 				},
 				success: function(response) {
 					console.log('AJAX response:', response);
@@ -239,7 +242,8 @@ feryfit_floating_chat(array(
 			var formData = {
 				action: 'feryfit_submit_faq_comment',
 				faq_id: faqId,
-				comment: $form.find('[name="comment"]').val()
+				comment: $form.find('[name="comment"]').val(),
+				nonce: feryfitFaqNonce
 			};
 
 			console.log('Submitting comment:', formData);
