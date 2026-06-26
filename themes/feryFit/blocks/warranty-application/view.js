@@ -21,8 +21,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			const centerX = rect.left + rect.width / 2;
 			const top = rect.top;
 
+			orderHelpTooltip.style.right = 'auto';
 			orderHelpTooltip.style.left = centerX + 'px';
 			orderHelpTooltip.style.top = top + 'px';
+			orderHelpTooltip.style.transform = 'translateX(-50%) translateY(-100%) translateY(-8px)';
 		}
 
 		orderHelpLink.addEventListener('click', function (e) {

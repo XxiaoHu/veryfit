@@ -1329,7 +1329,7 @@ div {
 }
 
 :where(html[dir="rtl"], html[lang|="ar"]) .site-footer .footer-social {
-    justify-content: flex-start;
+    justify-content: flex-end;
     margin-right: 0;
     margin-left: 200px;
 }
