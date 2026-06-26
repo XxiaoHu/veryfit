@@ -46,10 +46,20 @@
 	font-size: 14px;
 }
 
+:where(html[dir="rtl"], html[lang|="ar"]) .feryfit-breadcrumb {
+	direction: rtl;
+	padding-left: 20px;
+	padding-right: 288px;
+}
+
 @media screen and (max-width: 768px) {
 	.feryfit-breadcrumb {
 		padding: 15px;
 		gap: 6px;
+	}
+
+	:where(html[dir="rtl"], html[lang|="ar"]) .feryfit-breadcrumb {
+		padding: 15px;
 	}
 
 	.feryfit-breadcrumb__item,

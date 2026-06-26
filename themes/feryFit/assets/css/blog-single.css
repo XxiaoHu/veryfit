@@ -171,3 +171,14 @@
 .blog-submit-icon svg {
     flex-shrink: 0;
 }
+
+:where(html[dir="rtl"], html[lang|="ar"]) .blog-comment-section,
+:where(html[dir="rtl"], html[lang|="ar"]) .blog-comment-form,
+:where(html[dir="rtl"], html[lang|="ar"]) .blog-comment-textarea {
+    direction: rtl;
+    text-align: right;
+}
+
+:where(html[dir="rtl"], html[lang|="ar"]) .blog-comment-button-wrapper {
+    direction: rtl;
+}

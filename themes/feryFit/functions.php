@@ -84,6 +84,7 @@ function feryfit_register_polylang_strings() {
         pll_register_string( 'Message us on Facebook', 'Message us on Facebook', 'feryfit' );
         pll_register_string( 'Video', 'Video', 'feryfit' );
         pll_register_string( 'FAQ', 'FAQ', 'feryfit' );
+        pll_register_string( 'Liked', 'Liked', 'feryfit' );
 
         // Footer 文本字符串
         pll_register_string( 'Smart Tech Meets Everyday Life.', 'Smart Tech Meets Everyday Life.', 'feryfit' );
@@ -105,6 +106,15 @@ function feryfit_register_polylang_strings() {
     }
 }
 add_action( 'init', 'feryfit_register_polylang_strings' );
+
+function feryfit_force_arabic_rtl_language_attributes( $output ) {
+    if ( strpos( $output, 'dir=' ) === false && preg_match( '/lang=[\'"]ar(?:-[^\'"]*)?[\'"]/', $output ) ) {
+        $output .= ' dir="rtl"';
+    }
+
+    return $output;
+}
+add_filter( 'language_attributes', 'feryfit_force_arabic_rtl_language_attributes' );
 
 // 加载客服浮窗组件
 require get_template_directory() . '/inc/template-functions/floating-chat.php';

@@ -161,7 +161,7 @@ feryfit_floating_chat(array(
 			if (blogHasLikedToday(postId)) {
 				$likeButton.addClass('blog-like-button--liked');
 				$likeButton.prop('disabled', true);
-				$likeButton.attr('title', '已点赞');
+				$likeButton.attr('title', '<?php echo esc_js(pll__('Liked')); ?>');
 			}
 		}
 
