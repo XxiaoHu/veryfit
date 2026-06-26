@@ -28,10 +28,24 @@ document.addEventListener('DOMContentLoaded', function() {
 			submitButton.innerHTML = '<span class="loading-spinner"></span> Loading...';
 		}
 
-		fetch('/wp-json/feryfit/v1/submit-contact', {
-			method: 'POST',
-			body: formData,
+		fetch('/wp-json/feryfit/v1/contact-nonce', {
+			method: 'GET',
 			credentials: 'same-origin'
+		})
+		.then(response => response.json())
+		.then(nonceData => {
+			if (!nonceData.nonce) {
+				throw new Error('Failed to get contact nonce');
+			}
+
+			return fetch('/wp-json/feryfit/v1/submit-contact', {
+				method: 'POST',
+				body: formData,
+				credentials: 'same-origin',
+				headers: {
+					'X-FeryFit-Nonce': nonceData.nonce
+				}
+			});
 		})
 		.then(response => response.json())
 		.then(data => {
@@ -52,16 +66,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				if (submitButton) {
 					submitButton.style.display = 'none';
-					const successHtml = `
-						<div class="contact-form__success" id="contact-form-success">
-							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
-								<circle cx="16" cy="16" r="14" stroke="#22C55E" stroke-width="3" stroke-linejoin="round"/>
-								<path d="M10 16L14 20L24 10" stroke="#22C55E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>
-							<span>${form.getAttribute('data-success-message') || 'Submission Successful'}</span>
-						</div>
+					const successElement = document.createElement('div');
+					successElement.className = 'contact-form__success';
+					successElement.id = 'contact-form-success';
+					successElement.innerHTML = `
+						<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+							<circle cx="16" cy="16" r="14" stroke="#22C55E" stroke-width="3" stroke-linejoin="round"/>
+							<path d="M10 16L14 20L24 10" stroke="#22C55E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
 					`;
-					submitButton.insertAdjacentHTML('afterend', successHtml);
+					const successText = document.createElement('span');
+					successText.textContent = form.getAttribute('data-success-message') || 'Submission Successful';
+					successElement.appendChild(successText);
+					submitButton.insertAdjacentElement('afterend', successElement);
 
 					setTimeout(() => {
 						const successElement = document.getElementById('contact-form-success');
@@ -100,10 +117,12 @@ document.addEventListener('DOMContentLoaded', function() {
 						<path d="M8.75 21.25L21.25 8.75" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 					</svg>
 				</button>
-				<h3 class="contact-form__error-modal-title">${modalTitle}</h3>
-				<p class="contact-form__error-modal-message">${modalMessage}</p>
+				<h3 class="contact-form__error-modal-title"></h3>
+				<p class="contact-form__error-modal-message"></p>
 			</div>
 		`;
+		modal.querySelector('.contact-form__error-modal-title').textContent = modalTitle;
+		modal.querySelector('.contact-form__error-modal-message').textContent = modalMessage;
 		document.body.appendChild(modal);
 		document.body.style.overflow = 'hidden';
 

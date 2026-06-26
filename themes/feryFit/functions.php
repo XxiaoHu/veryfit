@@ -63,6 +63,39 @@ function feryfit_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'feryfit_scripts' );
 
+function feryfit_get_client_ip() {
+    $remote_addr = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+
+    return filter_var( $remote_addr, FILTER_VALIDATE_IP ) ? $remote_addr : '0.0.0.0';
+}
+
+function feryfit_rate_limit_check( $key, $limit, $window ) {
+    $transient_key = 'feryfit_rate_limit_' . md5( $key );
+    $current_count = get_transient( $transient_key );
+
+    if ( false !== $current_count && (int) $current_count >= $limit ) {
+        return false;
+    }
+
+    set_transient( $transient_key, false === $current_count ? 1 : (int) $current_count + 1, $window );
+
+    return true;
+}
+
+function feryfit_sanitize_csv_cell( $value ) {
+    if ( is_null( $value ) ) {
+        return '';
+    }
+
+    $value = (string) $value;
+
+    if ( '' !== $value && preg_match( '/^[=+\-@]/', ltrim( $value ) ) ) {
+        return "'" . $value;
+    }
+
+    return $value;
+}
+
 function feryfit_search_filter( $query ) {
     if ( $query->is_search() && ! is_admin() && $query->is_main_query() ) {
         $query->set( 'post_type', array( 'faq', 'blog', 'video_content' ) );

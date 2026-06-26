@@ -13,19 +13,31 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handle FAQ helpfulness vote via AJAX
  */
 function feryfit_handle_faq_vote() {
+    if ( ! check_ajax_referer( 'feryfit_faq_action', 'nonce', false ) ) {
+        wp_send_json_error( array( 'message' => 'Invalid nonce' ), 403 );
+    }
+
     if ( ! isset( $_POST['faq_id'], $_POST['vote'] ) ) {
         wp_send_json_error( array( 'message' => '缺少参数' ) );
     }
 
-    $faq_id = intval( $_POST['faq_id'] );
-    $vote = sanitize_text_field( $_POST['vote'] );
+    $faq_id = intval( wp_unslash( $_POST['faq_id'] ) );
+    $vote = sanitize_text_field( wp_unslash( $_POST['vote'] ) );
+
+    if ( 'faq' !== get_post_type( $faq_id ) || 'publish' !== get_post_status( $faq_id ) ) {
+        wp_send_json_error( array( 'message' => '无效的FAQ' ), 400 );
+    }
 
     if ( ! in_array( $vote, array( 'yes', 'no' ) ) ) {
         wp_send_json_error( array( 'message' => '无效的投票选项' ) );
     }
 
+    $ip = feryfit_get_client_ip();
+    if ( ! feryfit_rate_limit_check( 'faq_vote:' . $ip, 30, MINUTE_IN_SECONDS ) ) {
+        wp_send_json_error( array( 'message' => '请求过于频繁' ), 429 );
+    }
+
     // IP-based daily rate limit: one vote per FAQ per IP per day
-    $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
     $today = gmdate( 'Y-m-d' );
     $transient_key = 'faq_vote_' . $faq_id . '_' . md5( $ip ) . '_' . $today;
     if ( get_transient( $transient_key ) ) {
@@ -105,7 +117,11 @@ function feryfit_ajax_get_faq_votes() {
         wp_send_json_error( array( 'message' => '缺少参数' ) );
     }
     
-    $faq_id = intval( $_POST['faq_id'] );
+    $faq_id = intval( wp_unslash( $_POST['faq_id'] ) );
+    if ( 'faq' !== get_post_type( $faq_id ) || 'publish' !== get_post_status( $faq_id ) ) {
+        wp_send_json_error( array( 'message' => '无效的FAQ' ), 400 );
+    }
+
     $votes = feryfit_get_faq_votes( $faq_id );
     
     wp_send_json_success( $votes );
@@ -117,14 +133,31 @@ add_action( 'wp_ajax_nopriv_feryfit_get_faq_votes', 'feryfit_ajax_get_faq_votes'
  * Handle AJAX request to submit FAQ comment
  */
 function feryfit_ajax_submit_faq_comment() {
+    if ( ! check_ajax_referer( 'feryfit_faq_action', 'nonce', false ) ) {
+        wp_send_json_error( array( 'message' => 'Invalid nonce' ), 403 );
+    }
+
     if ( ! isset( $_POST['faq_id'], $_POST['comment'] ) ) {
         wp_send_json_error( array( 'message' => '缺少参数' ) );
     }
     
-    $faq_id = intval( $_POST['faq_id'] );
-    $comment_content = sanitize_textarea_field( $_POST['comment'] );
-    $author = isset( $_POST['author'] ) ? sanitize_text_field( $_POST['author'] ) : '';
-    $email = isset( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : '';
+    $faq_id = intval( wp_unslash( $_POST['faq_id'] ) );
+    if ( 'faq' !== get_post_type( $faq_id ) || 'publish' !== get_post_status( $faq_id ) ) {
+        wp_send_json_error( array( 'message' => '无效的FAQ' ), 400 );
+    }
+
+    $ip = feryfit_get_client_ip();
+    if ( ! feryfit_rate_limit_check( 'faq_comment:' . $ip, 3, 5 * MINUTE_IN_SECONDS ) ) {
+        wp_send_json_error( array( 'message' => '请求过于频繁' ), 429 );
+    }
+
+    $comment_content = substr( sanitize_textarea_field( wp_unslash( $_POST['comment'] ) ), 0, 2000 );
+    $author = isset( $_POST['author'] ) ? substr( sanitize_text_field( wp_unslash( $_POST['author'] ) ), 0, 80 ) : '';
+    $email = isset( $_POST['email'] ) ? substr( sanitize_email( wp_unslash( $_POST['email'] ) ), 0, 100 ) : '';
+
+    if ( '' === trim( $comment_content ) ) {
+        wp_send_json_error( array( 'message' => '评论不能为空' ), 400 );
+    }
     
     // Validate email if provided
     if ( ! empty( $email ) && ! is_email( $email ) ) {

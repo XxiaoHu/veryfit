@@ -387,19 +387,31 @@ function feryfit_display_blogs_accordion( $args = array() ) {
  * Handle blog post like via AJAX
  */
 function feryfit_handle_blog_like() {
+    if ( ! check_ajax_referer( 'feryfit_blog_action', 'nonce', false ) ) {
+        wp_send_json_error( array( 'message' => 'Invalid nonce' ), 403 );
+    }
+
     if ( ! isset( $_POST['post_id'], $_POST['vote'] ) ) {
         wp_send_json_error( array( 'message' => '缺少参数' ) );
     }
 
-    $post_id = intval( $_POST['post_id'] );
-    $vote = sanitize_text_field( $_POST['vote'] );
+    $post_id = intval( wp_unslash( $_POST['post_id'] ) );
+    $vote = sanitize_text_field( wp_unslash( $_POST['vote'] ) );
+
+    if ( 'blog' !== get_post_type( $post_id ) || 'publish' !== get_post_status( $post_id ) ) {
+        wp_send_json_error( array( 'message' => '无效的文章' ), 400 );
+    }
 
     if ( ! in_array( $vote, array( 'yes', 'no' ) ) ) {
         wp_send_json_error( array( 'message' => '无效的投票选项' ) );
     }
 
+    $ip = feryfit_get_client_ip();
+    if ( ! feryfit_rate_limit_check( 'blog_like:' . $ip, 30, MINUTE_IN_SECONDS ) ) {
+        wp_send_json_error( array( 'message' => '请求过于频繁' ), 429 );
+    }
+
     // IP-based daily rate limit: one like per post per IP per day
-    $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
     $today = gmdate( 'Y-m-d' );
     $transient_key = 'blog_like_' . $post_id . '_' . md5( $ip ) . '_' . $today;
     if ( get_transient( $transient_key ) ) {
@@ -452,7 +464,11 @@ function feryfit_ajax_get_blog_likes() {
         wp_send_json_error( array( 'message' => '缺少参数' ) );
     }
 
-    $post_id = intval( $_POST['post_id'] );
+    $post_id = intval( wp_unslash( $_POST['post_id'] ) );
+    if ( 'blog' !== get_post_type( $post_id ) || 'publish' !== get_post_status( $post_id ) ) {
+        wp_send_json_error( array( 'message' => '无效的文章' ), 400 );
+    }
+
     $yes_votes = get_post_meta( $post_id, '_blog_yes_votes', true );
     $no_votes = get_post_meta( $post_id, '_blog_no_votes', true );
 
@@ -472,12 +488,28 @@ add_action( 'wp_ajax_nopriv_feryfit_get_post_likes', 'feryfit_ajax_get_blog_like
  * Handle AJAX request to submit blog comment
  */
 function feryfit_ajax_submit_blog_comment() {
+    if ( ! check_ajax_referer( 'feryfit_blog_action', 'nonce', false ) ) {
+        wp_send_json_error( array( 'message' => 'Invalid nonce' ), 403 );
+    }
+
     if ( ! isset( $_POST['post_id'], $_POST['comment'] ) ) {
         wp_send_json_error( array( 'message' => '缺少参数' ) );
     }
 
-    $post_id = intval( $_POST['post_id'] );
-    $comment_content = sanitize_textarea_field( $_POST['comment'] );
+    $post_id = intval( wp_unslash( $_POST['post_id'] ) );
+    if ( 'blog' !== get_post_type( $post_id ) || 'publish' !== get_post_status( $post_id ) ) {
+        wp_send_json_error( array( 'message' => '无效的文章' ), 400 );
+    }
+
+    $ip = feryfit_get_client_ip();
+    if ( ! feryfit_rate_limit_check( 'blog_comment:' . $ip, 3, 5 * MINUTE_IN_SECONDS ) ) {
+        wp_send_json_error( array( 'message' => '请求过于频繁' ), 429 );
+    }
+
+    $comment_content = substr( sanitize_textarea_field( wp_unslash( $_POST['comment'] ) ), 0, 2000 );
+    if ( '' === trim( $comment_content ) ) {
+        wp_send_json_error( array( 'message' => '评论不能为空' ), 400 );
+    }
 
     $comment_data = array(
         'comment_post_ID' => $post_id,
