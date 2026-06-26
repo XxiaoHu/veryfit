@@ -161,7 +161,7 @@ feryfit_floating_chat(array(
 			if (faqHasLikedToday(faqId)) {
 				$likeButton.addClass('faq-like-button--liked');
 				$likeButton.prop('disabled', true);
-				$likeButton.attr('title', '已点赞');
+				$likeButton.attr('title', '<?php echo esc_js(pll__('Liked')); ?>');
 			}
 		}
 

@@ -1243,127 +1243,165 @@ div {
 /* ==============================================
    RTL Header / Footer
    ============================================== */
-html[dir="rtl"] body {
+:where(html[dir="rtl"], html[lang|="ar"]) body {
     direction: rtl;
 }
 
-html[dir="rtl"] .site-header,
-html[dir="rtl"] .header-container {
+:where(html[dir="rtl"], html[lang|="ar"]) .site-header,
+:where(html[dir="rtl"], html[lang|="ar"]) .header-container {
     direction: rtl;
 }
 
-html[dir="rtl"] .main-navigation {
+:where(html[dir="rtl"], html[lang|="ar"]) .main-navigation {
     direction: rtl;
     margin-left: 0;
     margin-right: 100px;
 }
 
-html[dir="rtl"] .main-navigation ul {
+:where(html[dir="rtl"], html[lang|="ar"]) .main-navigation ul {
     direction: rtl;
 }
 
-html[dir="rtl"] .language-switcher {
+:where(html[dir="rtl"], html[lang|="ar"]) .language-switcher {
     direction: rtl;
     right: auto;
     left: 21px;
 }
 
-html[dir="rtl"] .lang-dropdown-menu {
+:where(html[dir="rtl"], html[lang|="ar"]) .lang-dropdown-menu {
     right: auto;
     left: 0;
     direction: rtl;
     text-align: right;
 }
 
-html[dir="rtl"] .lang-dropdown-menu li.current-lang a::after,
-html[dir="rtl"] .lang-drawer-list li.current-lang a::after {
+:where(html[dir="rtl"], html[lang|="ar"]) .lang-dropdown-menu li.current-lang a::after,
+:where(html[dir="rtl"], html[lang|="ar"]) .lang-drawer-list li.current-lang a::after {
     margin-left: 0;
     margin-right: auto;
 }
 
-html[dir="rtl"] .mobile-menu-drawer,
-html[dir="rtl"] .lang-drawer,
-html[dir="rtl"] .mobile-navigation,
-html[dir="rtl"] .lang-drawer-list {
+:where(html[dir="rtl"], html[lang|="ar"]) .mobile-menu-drawer,
+:where(html[dir="rtl"], html[lang|="ar"]) .lang-drawer,
+:where(html[dir="rtl"], html[lang|="ar"]) .mobile-navigation,
+:where(html[dir="rtl"], html[lang|="ar"]) .lang-drawer-list {
     direction: rtl;
 }
 
-html[dir="rtl"] .mobile-menu-drawer {
+:where(html[dir="rtl"], html[lang|="ar"]) .mobile-menu-drawer {
     left: auto;
     right: 0;
     transform: translateX(100%);
     box-shadow: -2px 0 16px rgba(0, 0, 0, 0.1);
 }
 
-html[dir="rtl"] .mobile-menu-drawer.active {
+:where(html[dir="rtl"], html[lang|="ar"]) .mobile-menu-drawer.active {
     transform: translateX(0);
 }
 
-html[dir="rtl"] .lang-drawer {
+:where(html[dir="rtl"], html[lang|="ar"]) .lang-drawer {
     right: auto;
     left: 0;
     transform: translateX(-100%);
     box-shadow: 2px 0 16px rgba(0, 0, 0, 0.1);
 }
 
-html[dir="rtl"] .lang-drawer.active {
+:where(html[dir="rtl"], html[lang|="ar"]) .lang-drawer.active {
     transform: translateX(0);
 }
 
-html[dir="rtl"] .mobile-navigation ul li a::after {
+:where(html[dir="rtl"], html[lang|="ar"]) .mobile-navigation ul li a::after {
     transform: rotate(180deg);
 }
 
-html[dir="rtl"] .site-footer,
-html[dir="rtl"] .site-footer .accordion-button {
+:where(html[dir="rtl"], html[lang|="ar"]) .site-footer,
+:where(html[dir="rtl"], html[lang|="ar"]) .site-footer .accordion-button {
     text-align: right;
 }
 
-html[dir="rtl"] .site-footer .footer-contact-icon {
+:where(html[dir="rtl"], html[lang|="ar"]) .site-footer .footer-contact-icon {
     margin-right: 0;
     margin-left: 10px;
 }
 
-html[dir="rtl"] .site-footer .footer-contact-link {
+:where(html[dir="rtl"], html[lang|="ar"]) .site-footer .footer-contact-link {
     align-items: flex-start;
 }
 
-html[dir="rtl"] .site-footer .footer-social {
+:where(html[dir="rtl"], html[lang|="ar"]) .site-footer .footer-social {
     justify-content: flex-start;
     margin-right: 0;
     margin-left: 200px;
 }
 
-html[dir="rtl"] .site-footer .footer-social-link span {
+:where(html[dir="rtl"], html[lang|="ar"]) .site-footer .footer-social-link span {
     margin-left: 0;
     margin-right: 10px;
 }
 
+:where(html[dir="rtl"], html[lang|="ar"]) .single-video .video-single-article,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-video_content .video-single-article,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-faq .video-single-article,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-blog .video-single-article,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-faq .footer_body,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-blog .blog-feedback-wrapper {
+    direction: rtl;
+}
+
+:where(html[dir="rtl"], html[lang|="ar"]) .single-video .entry-content,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-video_content .entry-content,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-faq .entry-content,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-blog .entry-content {
+    text-align: right;
+}
+
+:where(html[dir="rtl"], html[lang|="ar"]) .single-video .entry-content ul,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-video .entry-content ol,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-video_content .entry-content ul,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-video_content .entry-content ol,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-faq .entry-content ul,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-faq .entry-content ol,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-blog .entry-content ul,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-blog .entry-content ol {
+    padding-left: 0;
+    padding-right: 1.5em;
+}
+
+:where(html[dir="rtl"], html[lang|="ar"]) .single-video .entry-content blockquote,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-video_content .entry-content blockquote,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-faq .entry-content blockquote,
+:where(html[dir="rtl"], html[lang|="ar"]) .single-blog .entry-content blockquote {
+    border-left: none;
+    border-right: 4px solid #e4e4e4;
+    padding-left: 0;
+    padding-right: 16px;
+}
+
 @media screen and (max-width: 768px) {
-    html[dir="rtl"] .header-container {
+    :where(html[dir="rtl"], html[lang|="ar"]) .header-container {
         direction: rtl;
     }
 
-    html[dir="rtl"] .site-branding {
+    :where(html[dir="rtl"], html[lang|="ar"]) .site-branding {
         left: 50%;
         right: auto;
     }
 
-    html[dir="rtl"] .language-switcher {
+    :where(html[dir="rtl"], html[lang|="ar"]) .language-switcher {
         left: auto;
         right: auto;
     }
 
-    html[dir="rtl"] .footer-social {
+    :where(html[dir="rtl"], html[lang|="ar"]) .footer-social {
         padding: 0 20px;
     }
 
-    html[dir="rtl"] .site-footer .footer-social {
+    :where(html[dir="rtl"], html[lang|="ar"]) .site-footer .footer-social {
         justify-content: flex-start;
         margin-left: 0;
     }
 
-    html[dir="rtl"] .site-footer .accordion-button {
+    :where(html[dir="rtl"], html[lang|="ar"]) .site-footer .accordion-button {
         text-align: right;
     }
 }
