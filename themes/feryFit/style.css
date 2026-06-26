@@ -1240,6 +1240,134 @@ div {
     }
 }
 
+/* ==============================================
+   RTL Header / Footer
+   ============================================== */
+html[dir="rtl"] body {
+    direction: rtl;
+}
+
+html[dir="rtl"] .site-header,
+html[dir="rtl"] .header-container {
+    direction: rtl;
+}
+
+html[dir="rtl"] .main-navigation {
+    direction: rtl;
+    margin-left: 0;
+    margin-right: 100px;
+}
+
+html[dir="rtl"] .main-navigation ul {
+    direction: rtl;
+}
+
+html[dir="rtl"] .language-switcher {
+    direction: rtl;
+    right: auto;
+    left: 21px;
+}
+
+html[dir="rtl"] .lang-dropdown-menu {
+    right: auto;
+    left: 0;
+    direction: rtl;
+    text-align: right;
+}
+
+html[dir="rtl"] .lang-dropdown-menu li.current-lang a::after,
+html[dir="rtl"] .lang-drawer-list li.current-lang a::after {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+html[dir="rtl"] .mobile-menu-drawer,
+html[dir="rtl"] .lang-drawer,
+html[dir="rtl"] .mobile-navigation,
+html[dir="rtl"] .lang-drawer-list {
+    direction: rtl;
+}
+
+html[dir="rtl"] .mobile-menu-drawer {
+    left: auto;
+    right: 0;
+    transform: translateX(100%);
+    box-shadow: -2px 0 16px rgba(0, 0, 0, 0.1);
+}
+
+html[dir="rtl"] .mobile-menu-drawer.active {
+    transform: translateX(0);
+}
+
+html[dir="rtl"] .lang-drawer {
+    right: auto;
+    left: 0;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 16px rgba(0, 0, 0, 0.1);
+}
+
+html[dir="rtl"] .lang-drawer.active {
+    transform: translateX(0);
+}
+
+html[dir="rtl"] .mobile-navigation ul li a::after {
+    transform: rotate(180deg);
+}
+
+html[dir="rtl"] .site-footer,
+html[dir="rtl"] .site-footer .accordion-button {
+    text-align: right;
+}
+
+html[dir="rtl"] .site-footer .footer-contact-icon {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+html[dir="rtl"] .site-footer .footer-contact-link {
+    align-items: flex-start;
+}
+
+html[dir="rtl"] .site-footer .footer-social {
+    justify-content: flex-start;
+    margin-right: 0;
+    margin-left: 200px;
+}
+
+html[dir="rtl"] .site-footer .footer-social-link span {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    html[dir="rtl"] .header-container {
+        direction: rtl;
+    }
+
+    html[dir="rtl"] .site-branding {
+        left: 50%;
+        right: auto;
+    }
+
+    html[dir="rtl"] .language-switcher {
+        left: auto;
+        right: auto;
+    }
+
+    html[dir="rtl"] .footer-social {
+        padding: 0 20px;
+    }
+
+    html[dir="rtl"] .site-footer .footer-social {
+        justify-content: flex-start;
+        margin-left: 0;
+    }
+
+    html[dir="rtl"] .site-footer .accordion-button {
+        text-align: right;
+    }
+}
+
 /* 搜索页面灰色背景区域 */
 .search-page__banner {
     background: #f0f0f0;
